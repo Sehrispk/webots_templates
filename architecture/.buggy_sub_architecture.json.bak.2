@@ -1,0 +1,958 @@
+{
+    "meta": {
+        "format": "1"
+    },
+    "steps": {
+        "cedar.processing.Projection": {
+            "name": "Projection 40",
+            "dimension mapping": {
+                "0": "4294967295",
+                "1": "4294967295",
+                "2": "4294967295"
+            },
+            "output dimensionality": "0",
+            "output dimension sizes": "",
+            "compression type": "MAXIMUM",
+            "comments": ""
+        },
+        "cedar.processing.Projection": {
+            "name": "Projection 41",
+            "dimension mapping": {
+                "0": "4294967295",
+                "1": "4294967295",
+                "2": "4294967295"
+            },
+            "output dimensionality": "0",
+            "output dimension sizes": "",
+            "compression type": "MAXIMUM",
+            "comments": ""
+        },
+        "cedar.processing.Projection": {
+            "name": "Projection 42",
+            "dimension mapping": {
+                "0": "4294967295",
+                "1": "4294967295",
+                "2": "4294967295"
+            },
+            "output dimensionality": "0",
+            "output dimension sizes": "",
+            "compression type": "MAXIMUM",
+            "comments": ""
+        },
+        "cedar.dynamics.NeuralField": {
+            "name": "S-C Memory Gate Allocentric",
+            "activation as output": "false",
+            "discrete metric (workaround)": "false",
+            "update stepIcon according to output": "true",
+            "threshold for updating the stepIcon": "0.80000000000000004",
+            "dimensionality": "3",
+            "sizes": [
+                "60",
+                "180",
+                "20"
+            ],
+            "time scale": "100",
+            "resting level": "-2",
+            "input noise gain": "0.10000000000000001",
+            "multiplicative noise (input)": "false",
+            "multiplicative noise (activation)": "false",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0",
+                "beta": "100"
+            },
+            "global inhibition": "-0.0040000000000000001",
+            "lateral kernels": {
+                "cedar.aux.kernel.Gauss": {
+                    "dimensionality": "3",
+                    "anchor": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "amplitude": "4",
+                    "sigmas": [
+                        "1",
+                        "3",
+                        "0.20000000000000001"
+                    ],
+                    "normalize": "true",
+                    "shifts": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "limit": "5"
+                }
+            },
+            "lateral kernel convolution": {
+                "engine": {
+                    "type": "cedar.aux.conv.ArrayFire"
+                },
+                "borderType": "Zero",
+                "mode": "Same",
+                "alternate even kernel center": "false"
+            },
+            "noise correlation kernel": {
+                "dimensionality": "3",
+                "anchor": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "amplitude": "0",
+                "sigmas": [
+                    "3",
+                    "3",
+                    "3"
+                ],
+                "normalize": "true",
+                "shifts": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "limit": "5"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.NeuralField": {
+            "name": "S-Sh Memory Gate Allocentric",
+            "activation as output": "false",
+            "discrete metric (workaround)": "false",
+            "update stepIcon according to output": "true",
+            "threshold for updating the stepIcon": "0.80000000000000004",
+            "dimensionality": "3",
+            "sizes": [
+                "60",
+                "180",
+                "20"
+            ],
+            "time scale": "100",
+            "resting level": "-2",
+            "input noise gain": "0.10000000000000001",
+            "multiplicative noise (input)": "false",
+            "multiplicative noise (activation)": "false",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0",
+                "beta": "100"
+            },
+            "global inhibition": "-0.0040000000000000001",
+            "lateral kernels": {
+                "cedar.aux.kernel.Gauss": {
+                    "dimensionality": "3",
+                    "anchor": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "amplitude": "4",
+                    "sigmas": [
+                        "1",
+                        "3",
+                        "0.20000000000000001"
+                    ],
+                    "normalize": "true",
+                    "shifts": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "limit": "5"
+                }
+            },
+            "lateral kernel convolution": {
+                "engine": {
+                    "type": "cedar.aux.conv.ArrayFire"
+                },
+                "borderType": "Zero",
+                "mode": "Same",
+                "alternate even kernel center": "false"
+            },
+            "noise correlation kernel": {
+                "dimensionality": "3",
+                "anchor": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "amplitude": "0",
+                "sigmas": [
+                    "3",
+                    "3",
+                    "3"
+                ],
+                "normalize": "true",
+                "shifts": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "limit": "5"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.NeuralField": {
+            "name": "S-Si Memory Gate  Allocentric",
+            "activation as output": "false",
+            "discrete metric (workaround)": "false",
+            "update stepIcon according to output": "true",
+            "threshold for updating the stepIcon": "0.80000000000000004",
+            "dimensionality": "3",
+            "sizes": [
+                "60",
+                "180",
+                "10"
+            ],
+            "time scale": "100",
+            "resting level": "-2",
+            "input noise gain": "0.10000000000000001",
+            "multiplicative noise (input)": "false",
+            "multiplicative noise (activation)": "false",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0",
+                "beta": "100"
+            },
+            "global inhibition": "-0.0060000000000000001",
+            "lateral kernels": {
+                "cedar.aux.kernel.Gauss": {
+                    "dimensionality": "3",
+                    "anchor": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "amplitude": "4",
+                    "sigmas": [
+                        "1",
+                        "3",
+                        "0.10000000000000001"
+                    ],
+                    "normalize": "true",
+                    "shifts": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "limit": "5"
+                }
+            },
+            "lateral kernel convolution": {
+                "engine": {
+                    "type": "cedar.aux.conv.ArrayFire"
+                },
+                "borderType": "Zero",
+                "mode": "Same",
+                "alternate even kernel center": "false"
+            },
+            "noise correlation kernel": {
+                "dimensionality": "3",
+                "anchor": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "amplitude": "0",
+                "sigmas": [
+                    "3",
+                    "3",
+                    "3"
+                ],
+                "normalize": "true",
+                "shifts": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "limit": "5"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.NeuralField": {
+            "name": "Space - Color Memory Selection ",
+            "activation as output": "false",
+            "discrete metric (workaround)": "false",
+            "update stepIcon according to output": "true",
+            "threshold for updating the stepIcon": "0.80000000000000004",
+            "dimensionality": "3",
+            "sizes": [
+                "60",
+                "180",
+                "20"
+            ],
+            "time scale": "50",
+            "resting level": "-2",
+            "input noise gain": "0.10000000000000001",
+            "multiplicative noise (input)": "false",
+            "multiplicative noise (activation)": "false",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0",
+                "beta": "100"
+            },
+            "global inhibition": "-0.01",
+            "lateral kernels": {
+                "cedar.aux.kernel.Gauss": {
+                    "dimensionality": "3",
+                    "anchor": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "amplitude": "3",
+                    "sigmas": [
+                        "1",
+                        "3",
+                        "0.29999999999999999"
+                    ],
+                    "normalize": "true",
+                    "shifts": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "limit": "5"
+                }
+            },
+            "lateral kernel convolution": {
+                "engine": {
+                    "type": "cedar.aux.conv.ArrayFire"
+                },
+                "borderType": "Zero",
+                "mode": "Same",
+                "alternate even kernel center": "false"
+            },
+            "noise correlation kernel": {
+                "dimensionality": "3",
+                "anchor": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "amplitude": "0",
+                "sigmas": [
+                    "3",
+                    "3",
+                    "3"
+                ],
+                "normalize": "true",
+                "shifts": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "limit": "5"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.NeuralField": {
+            "name": "Space - Shape Memory Selection ",
+            "activation as output": "false",
+            "discrete metric (workaround)": "false",
+            "update stepIcon according to output": "true",
+            "threshold for updating the stepIcon": "0.80000000000000004",
+            "dimensionality": "3",
+            "sizes": [
+                "60",
+                "180",
+                "20"
+            ],
+            "time scale": "50",
+            "resting level": "-2",
+            "input noise gain": "0.10000000000000001",
+            "multiplicative noise (input)": "false",
+            "multiplicative noise (activation)": "false",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0",
+                "beta": "100"
+            },
+            "global inhibition": "-0.01",
+            "lateral kernels": {
+                "cedar.aux.kernel.Gauss": {
+                    "dimensionality": "3",
+                    "anchor": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "amplitude": "3",
+                    "sigmas": [
+                        "1",
+                        "3",
+                        "0.29999999999999999"
+                    ],
+                    "normalize": "true",
+                    "shifts": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "limit": "5"
+                }
+            },
+            "lateral kernel convolution": {
+                "engine": {
+                    "type": "cedar.aux.conv.ArrayFire"
+                },
+                "borderType": "Zero",
+                "mode": "Same",
+                "alternate even kernel center": "false"
+            },
+            "noise correlation kernel": {
+                "dimensionality": "3",
+                "anchor": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "amplitude": "0",
+                "sigmas": [
+                    "3",
+                    "3",
+                    "3"
+                ],
+                "normalize": "true",
+                "shifts": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "limit": "5"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.NeuralField": {
+            "name": "Space - Size Memory Selection ",
+            "activation as output": "false",
+            "discrete metric (workaround)": "false",
+            "update stepIcon according to output": "true",
+            "threshold for updating the stepIcon": "0.80000000000000004",
+            "dimensionality": "3",
+            "sizes": [
+                "60",
+                "180",
+                "10"
+            ],
+            "time scale": "50",
+            "resting level": "-2",
+            "input noise gain": "0.10000000000000001",
+            "multiplicative noise (input)": "false",
+            "multiplicative noise (activation)": "false",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0",
+                "beta": "100"
+            },
+            "global inhibition": "-0.02",
+            "lateral kernels": {
+                "cedar.aux.kernel.Gauss": {
+                    "dimensionality": "3",
+                    "anchor": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "amplitude": "3",
+                    "sigmas": [
+                        "1",
+                        "3",
+                        "0.10000000000000001"
+                    ],
+                    "normalize": "true",
+                    "shifts": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "limit": "5"
+                }
+            },
+            "lateral kernel convolution": {
+                "engine": {
+                    "type": "cedar.aux.conv.ArrayFire"
+                },
+                "borderType": "Zero",
+                "mode": "Same",
+                "alternate even kernel center": "false"
+            },
+            "noise correlation kernel": {
+                "dimensionality": "3",
+                "anchor": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "amplitude": "0",
+                "sigmas": [
+                    "3",
+                    "3",
+                    "3"
+                ],
+                "normalize": "true",
+                "shifts": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "limit": "5"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.Preshape": {
+            "name": "Space Color Memory Trace Allocentric",
+            "dimensionality": "3",
+            "sizes": [
+                "60",
+                "180",
+                "20"
+            ],
+            "time scale build up": "100",
+            "time scale decay": "10000",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0.5",
+                "beta": "1000"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.Preshape": {
+            "name": "Space Shape Memory Trace Allocentric ",
+            "dimensionality": "3",
+            "sizes": [
+                "60",
+                "180",
+                "20"
+            ],
+            "time scale build up": "100",
+            "time scale decay": "10000",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0.5",
+                "beta": "1000"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.Preshape": {
+            "name": "Space Size Memory Trace Allocentric  ",
+            "dimensionality": "3",
+            "sizes": [
+                "60",
+                "180",
+                "10"
+            ],
+            "time scale build up": "100",
+            "time scale decay": "10000",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0.5",
+                "beta": "1000"
+            },
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 20",
+            "gain factor": "1",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 21",
+            "gain factor": "1",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 22",
+            "gain factor": "1",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 23",
+            "gain factor": "3",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 24",
+            "gain factor": "3",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 25",
+            "gain factor": "3",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 26",
+            "gain factor": "-6",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 27",
+            "gain factor": "-6",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 28",
+            "gain factor": "-6",
+            "comments": ""
+        }
+    },
+    "triggers": {
+        "cedar.processing.LoopedTrigger": {
+            "name": "default thread",
+            "step size": "0.02 s",
+            "fake Euler step size": "0.02 s",
+            "minimum sleep time": "0.0002 s",
+            "idle time": "1e-05 s",
+            "simulated time": "0.001 s",
+            "loop mode": "fake deltaT",
+            "use default CPU step": "true",
+            "start with all": "true",
+            "previous custom step size": "0.02 s",
+            "listeners": [
+                "S-C Memory Gate Allocentric",
+                "Space Color Memory Trace Allocentric",
+                "Space Shape Memory Trace Allocentric ",
+                "Space - Size Memory Selection ",
+                "Space - Shape Memory Selection ",
+                "Space - Color Memory Selection ",
+                "S-Si Memory Gate  Allocentric",
+                "S-Sh Memory Gate Allocentric",
+                "Space Size Memory Trace Allocentric  "
+            ]
+        }
+    },
+    "connections": [
+        {
+            "source": "S-C Memory Gate Allocentric.sigmoided activation",
+            "target": "Static Gain 20.input"
+        },
+        {
+            "source": "S-Sh Memory Gate Allocentric.sigmoided activation",
+            "target": "Static Gain 21.input"
+        },
+        {
+            "source": "Static Gain 21.output",
+            "target": "Space Shape Memory Trace Allocentric .input"
+        },
+        {
+            "source": "S-Si Memory Gate  Allocentric.sigmoided activation",
+            "target": "Static Gain 22.input"
+        },
+        {
+            "source": "Static Gain 22.output",
+            "target": "Space Size Memory Trace Allocentric  .input"
+        },
+        {
+            "source": "Space Shape Memory Trace Allocentric .activation",
+            "target": "Static Gain 24.input"
+        },
+        {
+            "source": "Static Gain 24.output",
+            "target": "Space - Shape Memory Selection .input"
+        },
+        {
+            "source": "Static Gain 25.output",
+            "target": "Space - Size Memory Selection .input"
+        },
+        {
+            "source": "Space - Color Memory Selection .sigmoided activation",
+            "target": "Static Gain 26.input"
+        },
+        {
+            "source": "Space - Shape Memory Selection .sigmoided activation",
+            "target": "Static Gain 27.input"
+        },
+        {
+            "source": "Space - Size Memory Selection .sigmoided activation",
+            "target": "Static Gain 28.input"
+        },
+        {
+            "source": "Space Size Memory Trace Allocentric  .activation",
+            "target": "Static Gain 25.input"
+        },
+        {
+            "source": "S-C Memory Gate Allocentric.sigmoided activation",
+            "target": "Projection 40.input"
+        },
+        {
+            "source": "S-Sh Memory Gate Allocentric.sigmoided activation",
+            "target": "Projection 41.input"
+        },
+        {
+            "source": "Projection 41.output",
+            "target": "Space Shape Memory Trace Allocentric .peak detector"
+        },
+        {
+            "source": "S-Si Memory Gate  Allocentric.sigmoided activation",
+            "target": "Projection 42.input"
+        },
+        {
+            "source": "Projection 42.output",
+            "target": "Space Size Memory Trace Allocentric  .peak detector"
+        },
+        {
+            "source": "Static Gain 28.output",
+            "target": "S-Si Memory Gate  Allocentric.input"
+        },
+        {
+            "source": "Static Gain 27.output",
+            "target": "S-Sh Memory Gate Allocentric.input"
+        },
+        {
+            "source": "Static Gain 26.output",
+            "target": "S-C Memory Gate Allocentric.input"
+        },
+        {
+            "source": "Static Gain 23.output",
+            "target": "Space - Color Memory Selection .input"
+        },
+        {
+            "source": "Projection 40.output",
+            "target": "Space Color Memory Trace Allocentric.peak detector"
+        },
+        {
+            "source": "Space Color Memory Trace Allocentric.activation",
+            "target": "Static Gain 23.input"
+        },
+        {
+            "source": "Static Gain 20.output",
+            "target": "Space Color Memory Trace Allocentric.input"
+        }
+    ],
+    "name": "element",
+    "connectors": "",
+    "is looped": "true",
+    "time factor": "1",
+    "loop mode": "fake deltaT",
+    "simulation euler step": "0.02 s",
+    "default CPU step": "0.02 s",
+    "min computation time": "0.02 s",
+    "ui": [
+        {
+            "type": "connections",
+            "connections": ""
+        },
+        {
+            "type": "step",
+            "step": "Projection 40",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-112",
+            "positionY": "-154"
+        },
+        {
+            "type": "step",
+            "step": "Projection 41",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "98",
+            "positionY": "-154"
+        },
+        {
+            "type": "step",
+            "step": "Projection 42",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "308",
+            "positionY": "-154"
+        },
+        {
+            "type": "step",
+            "step": "S-C Memory Gate Allocentric",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "-140",
+            "positionY": "140"
+        },
+        {
+            "type": "step",
+            "step": "S-Sh Memory Gate Allocentric",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "126",
+            "positionY": "154"
+        },
+        {
+            "type": "step",
+            "step": "S-Si Memory Gate  Allocentric",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "280",
+            "positionY": "140"
+        },
+        {
+            "type": "step",
+            "step": "Space - Color Memory Selection ",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "-644",
+            "positionY": "-70"
+        },
+        {
+            "type": "step",
+            "step": "Space - Shape Memory Selection ",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "-630",
+            "positionY": "0"
+        },
+        {
+            "type": "step",
+            "step": "Space - Size Memory Selection ",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "-630",
+            "positionY": "70"
+        },
+        {
+            "type": "step",
+            "step": "Space Color Memory Trace Allocentric",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "-98",
+            "positionY": "-364"
+        },
+        {
+            "type": "step",
+            "step": "Space Shape Memory Trace Allocentric ",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "84",
+            "positionY": "-350"
+        },
+        {
+            "type": "step",
+            "step": "Space Size Memory Trace Allocentric  ",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "280",
+            "positionY": "-350"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 20",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-196",
+            "positionY": "-154"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 21",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "14",
+            "positionY": "-154"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 22",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "224",
+            "positionY": "-154"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 23",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-770",
+            "positionY": "-98"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 24",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-756",
+            "positionY": "0"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 25",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-756",
+            "positionY": "70"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 26",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-448",
+            "positionY": "-70"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 27",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-448",
+            "positionY": "0"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 28",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-448",
+            "positionY": "70"
+        },
+        {
+            "type": "trigger",
+            "trigger": "default thread",
+            "width": "30",
+            "height": "30",
+            "positionX": "0",
+            "positionY": "0"
+        }
+    ],
+    "ui view": {
+        "ScrollBarX": "0",
+        "ScrollBarY": "-273",
+        "SliderPosX": "0",
+        "SliderPosY": "-273",
+        "Zoom": "0.75"
+    },
+    "ui generic": {
+        "group": "element",
+        "open plots": "",
+        "plot groups": "",
+        "architecture widgets": "",
+        "robots": "",
+        "width": "250",
+        "height": "250",
+        "smart mode": "false",
+        "collapsed": "false",
+        "lock geometry": "false",
+        "uncollapsed width": "250",
+        "uncollapsed height": "250",
+        "positionX": "0",
+        "positionY": "0"
+    }
+}
