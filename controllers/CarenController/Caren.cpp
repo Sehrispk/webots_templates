@@ -80,8 +80,7 @@ void Caren::ComThreadUpdate()
     if (comThread->doesWriteSocketExist("head"))
     {
         sensordata.headFixation.at<float>(0) = -(sensordata.headFixation.at<float>(0)-0.4) * 60/0.8;
-        sensordata.headFixation.at<float>(1) = (sensordata.headFixation.at<float>(1)-0.8) * 20/0.23;
-        sensordata.headFixation.at<float>(2) = (sensordata.headFixation.at<float>(2)+0.8) * 180/1.6;
+        sensordata.headFixation.at<float>(1) = (sensordata.headFixation.at<float>(1)+0.8) * 180/1.6;
         comThread->setWriteMatrix("head", sensordata.headFixation);
     }
 
@@ -118,7 +117,7 @@ void Caren::ComThreadUpdate()
         }
         else
         {
-            cedardata.connectorStatus = cv::Mat::zeros(2,1,CV_32F);
+            cedardata.connectorStatus = cv::Mat::zeros(1,1,CV_32F);
         }
     }
 
@@ -174,8 +173,9 @@ void Caren::readSensorValues()
 
     ////////////////////////////////////// COORDINATE TRANSFORMATIONS MISSING ////////////////////////////////////////////////
 
-    // caren position (caren coordinate system)
-    sensordata.carenPosition.at<float>(0) = caren_node->getPosition()[2];
+    // caren position (allocentric coordinate system)
+    float z_pos = (float) getFromDef("Camera_Center")->getPosition()[2];
+    sensordata.carenPosition.at<float>(0) = z_pos;
 
     // cube position
     sensordata.cubePosition.at<float>(0) = cube_sensor->getValue();
@@ -187,7 +187,7 @@ void Caren::readSensorValues()
     }
 
     // connector status
-    sensordata.connectorStatus.at<float>(0) = connector->isLocked();
+    //sensordata.connectorStatus.at<float>(0) = connector->isLocked();
     sensordata.connectorStatus.at<float>(1) = connector->getPresence();
 
     // endeffector position (allocentric coordinate system)
@@ -200,20 +200,15 @@ void Caren::readSensorValues()
 
     // head fixation (allocentric system) for now leave it like this... actually the camera is not in the rotation center...
     const double *head_pos_ar = getFromDef("Camera_Center")->getPosition();
-    Vec3f head_pos(head_pos_ar[0], head_pos_ar[1], head_pos_ar[2]);
+    Vec3f head_pos(head_pos_ar[0], head_pos_ar[2], head_pos_ar[1]);
+    head_pos[0] = head_pos[0] -0.4;
     float phi = -sensordata.headAngles.at<float>(1);
     float theta = sensordata.headAngles.at<float>(0)+M_PI;
     Vec3f head_direction(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta));
-    float fixation_distance;
-    if (isinf(sensordata.distancePicture.at<float>(50,50)))
-    {
-        fixation_distance = (float) distance_camera->getMaxRange();
-    }
-    else
-    {
-        fixation_distance = (float) sensordata.distancePicture.at<float>(50,50);
-    }
-    sensordata.headFixation =  (cv::Mat) (head_pos + fixation_distance * head_direction);
+
+    float table_proj_factor = (0.8-head_pos[2])/head_direction[2];
+    Vec2f table_pos((head_pos + table_proj_factor * head_direction)[0], (head_pos + table_proj_factor * head_direction)[1]);
+    sensordata.headFixation =  (cv::Mat) table_pos;
 }
 
 void Caren::applyMotorCommands()
@@ -266,19 +261,47 @@ void Caren::applyMotorCommands()
     target_head_direction[0] = -target_head_direction[0];
     float theta = acos(target_head_direction[1]);
     float phi = atan2(target_head_direction[2], target_head_direction[0]);
-    head_motors[0]->setVelocity(0.5);
+    head_motors[0]->setVelocity(1.0);
     head_motors[0]->setPosition(theta-M_PI);
-    head_motors[1]->setVelocity(0.5);
+    head_motors[1]->setVelocity(1.0);
     head_motors[1]->setPosition(-phi);
 
     ///////////////////////////////////////////// connector commands /////////////////////////////////////////////////////////
-    if ( sensordata.connectorStatus.at<float>(0) != cedardata.connectorStatus.at<float>(0) && connector->isLocked())
+    if ( cedardata.connectorStatus.at<float>(0) <= 0.5 &&  sensordata.connectorStatus.at<float>(0)==1)
     {
-        connector->unlock();
+        std::cout << "unkock!" << std::endl;
+        sensordata.connectorStatus.at<float>(0)=0;
+        //connector->unlock();
     }
-    else if (sensordata.connectorStatus.at<float>(0) != cedardata.connectorStatus.at<float>(0) && connector->isLocked() == false)
+    else if (cedardata.connectorStatus.at<float>(0) > 0.5 && sensordata.connectorStatus.at<float>(0)==0 && sensordata.connectorStatus.at<float>(1)==1)
     {
-        connector->lock();
+        std::cout << "lock!" << std::endl;
+        sensordata.connectorStatus.at<float>(0)=1;
+        //connector->lock();
+    }
+    if (sensordata.connectorStatus.at<float>(0) == 1)
+    {
+        Node *ConnectorNode = getFromDef("Connector");
+        const double *ConnectorPosition = ConnectorNode->getPosition();
+        int num_grasp_objects = 5;
+        const char *objects[num_grasp_objects] = {"solid1", "solid2", "solid3", "solid4", "solid5"};
+        for(int i = 0; i < num_grasp_objects; i++)
+        {
+            Node *ObjectNode = getFromDef(objects[i]); 
+            const double *ObjectPosition = ObjectNode->getPosition();
+            Field *ObjectTranslation = ObjectNode->getField("translation");
+            Field *ObjectRotation = ObjectNode->getField("rotation");
+            double distance = std::sqrt( (ObjectPosition[0]-ConnectorPosition[0])*(ObjectPosition[0]-ConnectorPosition[0]) + 
+                                (ObjectPosition[1]-ConnectorPosition[1])*(ObjectPosition[1]-ConnectorPosition[1]) + 
+                                (ObjectPosition[2]-ConnectorPosition[2])*(ObjectPosition[2]-ConnectorPosition[2]));
+            if(distance < 0.09) //was 0.08
+            {
+                double newObjpos[3] = {ConnectorPosition[0],ConnectorPosition[1]-0.08,ConnectorPosition[2]};
+                double newRotation[3] = {0,0,0};
+                ObjectTranslation->setSFVec3f(newObjpos);    
+                ObjectNode->resetPhysics();
+            }
+        }
     }
 }
 

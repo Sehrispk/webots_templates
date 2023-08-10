@@ -53,13 +53,14 @@
             "discrete metric (workaround)": "false",
             "update stepIcon according to output": "true",
             "threshold for updating the stepIcon": "0.80000000000000004",
-            "dimensionality": "2",
+            "dimensionality": "3",
             "sizes": [
                 "100",
-                "100"
+                "100",
+                "20"
             ],
             "time scale": "100",
-            "resting level": "-5",
+            "resting level": "-0.75",
             "input noise gain": "0.10000000000000001",
             "multiplicative noise (input)": "false",
             "multiplicative noise (activation)": "false",
@@ -69,28 +70,74 @@
                 "beta": "100"
             },
             "global inhibition": "0",
-            "lateral kernels": "",
+            "lateral kernels": {
+                "cedar.aux.kernel.Gauss": {
+                    "dimensionality": "3",
+                    "anchor": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "amplitude": "1.1000000000000001",
+                    "sigmas": [
+                        "4",
+                        "4",
+                        "0.01"
+                    ],
+                    "normalize": "true",
+                    "shifts": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "limit": "5"
+                },
+                "cedar.aux.kernel.Gauss": {
+                    "dimensionality": "3",
+                    "anchor": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "amplitude": "-2.0000000000000009",
+                    "sigmas": [
+                        "8",
+                        "8",
+                        "0.01"
+                    ],
+                    "normalize": "true",
+                    "shifts": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "limit": "5"
+                }
+            },
             "lateral kernel convolution": {
                 "engine": {
-                    "type": "cedar.aux.conv.OpenCV"
+                    "type": "cedar.aux.conv.FFTW"
                 },
                 "borderType": "Cyclic",
                 "mode": "Same",
                 "alternate even kernel center": "false"
             },
             "noise correlation kernel": {
-                "dimensionality": "2",
+                "dimensionality": "3",
                 "anchor": [
+                    "0",
                     "0",
                     "0"
                 ],
                 "amplitude": "0",
                 "sigmas": [
                     "3",
+                    "3",
                     "3"
                 ],
                 "normalize": "true",
                 "shifts": [
+                    "0",
                     "0",
                     "0"
                 ],
@@ -121,9 +168,8 @@
             "multiplicative noise (input)": "false",
             "multiplicative noise (activation)": "false",
             "sigmoid": {
-                "type": "cedar.aux.math.AbsSigmoid",
-                "threshold": "0",
-                "beta": "100"
+                "type": "cedar.aux.math.HeavisideSigmoid",
+                "threshold": "0"
             },
             "global inhibition": "-0.01",
             "lateral kernels": "",
@@ -166,9 +212,9 @@
             "kernels": "",
             "convolution": {
                 "engine": {
-                    "type": "cedar.aux.conv.ArrayFire"
+                    "type": "cedar.aux.conv.FFTW"
                 },
-                "borderType": "Zero",
+                "borderType": "Cyclic",
                 "mode": "Same",
                 "alternate even kernel center": "false"
             },
@@ -187,7 +233,7 @@
                 "20"
             ],
             "time scale": "100",
-            "resting level": "-2.75",
+            "resting level": "-2.2999999999999998",
             "input noise gain": "0.10000000000000001",
             "multiplicative noise (input)": "false",
             "multiplicative noise (activation)": "false",
@@ -196,13 +242,13 @@
                 "threshold": "0",
                 "beta": "100"
             },
-            "global inhibition": "0",
+            "global inhibition": "-0",
             "lateral kernels": "",
             "lateral kernel convolution": {
                 "engine": {
-                    "type": "cedar.aux.conv.ArrayFire"
+                    "type": "cedar.aux.conv.FFTW"
                 },
-                "borderType": "Zero",
+                "borderType": "Cyclic",
                 "mode": "Same",
                 "alternate even kernel center": "false"
             },
@@ -230,19 +276,15 @@
             "comments": ""
         },
         "cedar.dynamics.NeuralField": {
-            "name": "Current Head Fixation",
+            "name": "Current Connector Presence",
             "activation as output": "false",
             "discrete metric (workaround)": "false",
             "update stepIcon according to output": "true",
             "threshold for updating the stepIcon": "0.80000000000000004",
-            "dimensionality": "3",
-            "sizes": [
-                "60",
-                "180",
-                "20"
-            ],
+            "dimensionality": "0",
+            "sizes": "",
             "time scale": "100",
-            "resting level": "-2.75",
+            "resting level": "-0.75",
             "input noise gain": "0.10000000000000001",
             "multiplicative noise (input)": "false",
             "multiplicative noise (activation)": "false",
@@ -255,28 +297,118 @@
             "lateral kernels": "",
             "lateral kernel convolution": {
                 "engine": {
-                    "type": "cedar.aux.conv.ArrayFire"
+                    "type": "cedar.aux.conv.OpenCV"
                 },
                 "borderType": "Zero",
                 "mode": "Same",
                 "alternate even kernel center": "false"
             },
             "noise correlation kernel": {
-                "dimensionality": "3",
+                "dimensionality": "1",
                 "anchor": [
-                    "0",
+                    "0"
+                ],
+                "amplitude": "0",
+                "sigmas": [
+                    "3"
+                ],
+                "normalize": "true",
+                "shifts": [
+                    "0"
+                ],
+                "limit": "5"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.NeuralField": {
+            "name": "Current Connector Status",
+            "activation as output": "false",
+            "discrete metric (workaround)": "false",
+            "update stepIcon according to output": "true",
+            "threshold for updating the stepIcon": "0.80000000000000004",
+            "dimensionality": "0",
+            "sizes": "",
+            "time scale": "100",
+            "resting level": "-0.75",
+            "input noise gain": "0.10000000000000001",
+            "multiplicative noise (input)": "false",
+            "multiplicative noise (activation)": "false",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0",
+                "beta": "100"
+            },
+            "global inhibition": "0",
+            "lateral kernels": "",
+            "lateral kernel convolution": {
+                "engine": {
+                    "type": "cedar.aux.conv.OpenCV"
+                },
+                "borderType": "Zero",
+                "mode": "Same",
+                "alternate even kernel center": "false"
+            },
+            "noise correlation kernel": {
+                "dimensionality": "1",
+                "anchor": [
+                    "0"
+                ],
+                "amplitude": "0",
+                "sigmas": [
+                    "3"
+                ],
+                "normalize": "true",
+                "shifts": [
+                    "0"
+                ],
+                "limit": "5"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.NeuralField": {
+            "name": "Current Head Fixation",
+            "activation as output": "false",
+            "discrete metric (workaround)": "false",
+            "update stepIcon according to output": "true",
+            "threshold for updating the stepIcon": "0.80000000000000004",
+            "dimensionality": "2",
+            "sizes": [
+                "60",
+                "180"
+            ],
+            "time scale": "100",
+            "resting level": "-1.75",
+            "input noise gain": "0.10000000000000001",
+            "multiplicative noise (input)": "false",
+            "multiplicative noise (activation)": "false",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0",
+                "beta": "100"
+            },
+            "global inhibition": "0",
+            "lateral kernels": "",
+            "lateral kernel convolution": {
+                "engine": {
+                    "type": "cedar.aux.conv.OpenCV"
+                },
+                "borderType": "Zero",
+                "mode": "Same",
+                "alternate even kernel center": "false"
+            },
+            "noise correlation kernel": {
+                "dimensionality": "2",
+                "anchor": [
                     "0",
                     "0"
                 ],
                 "amplitude": "0",
                 "sigmas": [
                     "3",
-                    "3",
                     "3"
                 ],
                 "normalize": "true",
                 "shifts": [
-                    "0",
                     "0",
                     "0"
                 ],
@@ -349,6 +481,22 @@
             "send interval (timesteps)": "1",
             "comments": ""
         },
+        "cedar.processing.sources.GaussInput": {
+            "name": "Kill arm color channel",
+            "dimensionality": "1",
+            "sizes": [
+                "20"
+            ],
+            "amplitude": "-1",
+            "centers": [
+                "1"
+            ],
+            "sigma": [
+                "0.01"
+            ],
+            "cyclic": "false",
+            "comments": ""
+        },
         "cedar.processing.steps.MatrixTypeConverter": {
             "name": "Matrix Type Converter",
             "target type": "Float",
@@ -406,11 +554,10 @@
             "dimension mapping": {
                 "0": "1"
             },
-            "output dimensionality": "3",
+            "output dimensionality": "2",
             "output dimension sizes": [
                 "60",
-                "180",
-                "20"
+                "180"
             ],
             "compression type": "SUM",
             "comments": ""
@@ -420,25 +567,36 @@
             "dimension mapping": {
                 "0": "0"
             },
-            "output dimensionality": "3",
+            "output dimensionality": "2",
             "output dimension sizes": [
                 "60",
-                "180",
-                "20"
+                "180"
             ],
             "compression type": "SUM",
             "comments": ""
         },
         "cedar.processing.Projection": {
-            "name": "Projection 13",
+            "name": "Projection 14",
             "dimension mapping": {
-                "0": "2"
+                "0": "0",
+                "1": "4294967295"
             },
-            "output dimensionality": "3",
+            "output dimensionality": "1",
             "output dimension sizes": [
-                "60",
-                "180",
-                "20"
+                "60"
+            ],
+            "compression type": "SUM",
+            "comments": ""
+        },
+        "cedar.processing.Projection": {
+            "name": "Projection 15",
+            "dimension mapping": {
+                "0": "4294967295",
+                "1": "0"
+            },
+            "output dimensionality": "1",
+            "output dimension sizes": [
+                "180"
             ],
             "compression type": "SUM",
             "comments": ""
@@ -498,18 +656,17 @@
             "comments": ""
         },
         "cedar.processing.Projection": {
-            "name": "Projection 6",
+            "name": "Projection 7",
             "dimension mapping": {
-                "0": "0",
-                "1": "1",
-                "2": "4294967295"
+                "0": "2"
             },
-            "output dimensionality": "2",
+            "output dimensionality": "3",
             "output dimension sizes": [
                 "100",
-                "100"
+                "100",
+                "20"
             ],
-            "compression type": "MAXIMUM",
+            "compression type": "SUM",
             "comments": ""
         },
         "cedar.processing.Projection": {
@@ -578,7 +735,7 @@
                 "20"
             ],
             "sigma": [
-                "3"
+                "1"
             ],
             "cyclic": "false",
             "comments": ""
@@ -594,24 +751,6 @@
             ],
             "upper limits": [
                 "180"
-            ],
-            "sigma": [
-                "3"
-            ],
-            "cyclic": "false",
-            "comments": ""
-        },
-        "cedar.dynamics.RateToSpaceCode": {
-            "name": "Rate To Space Code 4",
-            "output sizes": [
-                "20"
-            ],
-            "amplitude": "1",
-            "lower limits": [
-                "0"
-            ],
-            "upper limits": [
-                "20"
             ],
             "sigma": [
                 "3"
@@ -694,12 +833,16 @@
             "comments": ""
         },
         "cedar.processing.StaticGain": {
-            "name": "Static Gain 67",
-            "gain factor": "6",
+            "name": "Static Gain 2",
+            "gain factor": "2.2999999999999998",
+            "comments": ""
+        },
+        "cedar.processing.steps.Sum": {
+            "name": "Sum",
             "comments": ""
         },
         "cedar.processing.sources.GaussInput": {
-            "name": "Target Position",
+            "name": "Target Arm Position",
             "dimensionality": "3",
             "sizes": [
                 "60",
@@ -708,9 +851,9 @@
             ],
             "amplitude": "6",
             "centers": [
-                "14",
-                "180",
-                "18"
+                "40",
+                "105",
+                "20"
             ],
             "sigma": [
                 "3",
@@ -720,12 +863,44 @@
             "cyclic": "false",
             "comments": ""
         },
-        "cedar.processing.TransferFunction": {
-            "name": "Transfer Function 2",
-            "function": {
-                "type": "cedar.aux.math.HeavisideSigmoid",
-                "threshold": "0.48999999999999999"
-            },
+        "cedar.processing.sources.GaussInput": {
+            "name": "Target body Position",
+            "dimensionality": "1",
+            "sizes": [
+                "180"
+            ],
+            "amplitude": "6",
+            "centers": [
+                "35"
+            ],
+            "sigma": [
+                "3"
+            ],
+            "cyclic": "false",
+            "comments": ""
+        },
+        "cedar.processing.sources.GaussInput": {
+            "name": "Target head Position",
+            "dimensionality": "2",
+            "sizes": [
+                "60",
+                "180"
+            ],
+            "amplitude": "6",
+            "centers": [
+                "30",
+                "100"
+            ],
+            "sigma": [
+                "3",
+                "3"
+            ],
+            "cyclic": "false",
+            "comments": ""
+        },
+        "cedar.processing.VectorToScalars": {
+            "name": "Vector To Scalars",
+            "number of vector entries": "2",
             "comments": ""
         },
         "cedar.processing.VectorToScalars": {
@@ -735,11 +910,21 @@
         },
         "cedar.processing.VectorToScalars": {
             "name": "Vector To Scalars 3",
-            "number of vector entries": "3",
+            "number of vector entries": "2",
             "comments": ""
         },
         "cedar.dynamics.SpaceToRateCode": {
             "name": "x target",
+            "tau": "0.1 s",
+            "lowerLimit": "0.99999999999999989",
+            "upperLimit": "60",
+            "jump to fixed point": "false",
+            "use cyclic mean": "false",
+            "NaN if no peak": "false",
+            "comments": ""
+        },
+        "cedar.dynamics.SpaceToRateCode": {
+            "name": "x target 2",
             "tau": "0.1 s",
             "lowerLimit": "0.99999999999999989",
             "upperLimit": "60",
@@ -760,6 +945,26 @@
         },
         "cedar.dynamics.SpaceToRateCode": {
             "name": "z target",
+            "tau": "0.1 s",
+            "lowerLimit": "1",
+            "upperLimit": "180",
+            "jump to fixed point": "false",
+            "use cyclic mean": "false",
+            "NaN if no peak": "false",
+            "comments": ""
+        },
+        "cedar.dynamics.SpaceToRateCode": {
+            "name": "z target 2",
+            "tau": "0.1 s",
+            "lowerLimit": "1",
+            "upperLimit": "180",
+            "jump to fixed point": "false",
+            "use cyclic mean": "false",
+            "NaN if no peak": "false",
+            "comments": ""
+        },
+        "cedar.dynamics.SpaceToRateCode": {
+            "name": "z target 3",
             "tau": "0.1 s",
             "lowerLimit": "1",
             "upperLimit": "180",
@@ -797,8 +1002,13 @@
                 "Connector Reader",
                 "Color-Space-Perception",
                 "Current Position",
+                "Current Head Fixation",
                 "Current Arm Position",
-                "Current Head Fixation"
+                "x target 2",
+                "z target 2",
+                "z target 3",
+                "Current Connector Status",
+                "Current Connector Presence"
             ]
         }
     },
@@ -848,19 +1058,11 @@
             "target": "Scalars To Vector.scalar 2"
         },
         {
-            "source": "z target.output",
-            "target": "Scalars To Vector 2.scalar 0"
-        },
-        {
-            "source": "x target.output",
-            "target": "Scalars To Vector 3.scalar 0"
-        },
-        {
-            "source": "Target Position.Gauss input",
+            "source": "Target Arm Position.Gauss input",
             "target": "Projection.input"
         },
         {
-            "source": "Target Position.Gauss input",
+            "source": "Target Arm Position.Gauss input",
             "target": "Projection 2.input"
         },
         {
@@ -874,10 +1076,6 @@
         {
             "source": "Scalars To Vector 3.vector",
             "target": "Head Writer.input"
-        },
-        {
-            "source": "z target.output",
-            "target": "Scalars To Vector 3.scalar 1"
         },
         {
             "source": "Rate Matrix To Space Code.output",
@@ -902,22 +1100,6 @@
         {
             "source": "Channel Split.channel 2",
             "target": "Rate Matrix To Space Code.values"
-        },
-        {
-            "source": "Static Gain 67.output",
-            "target": "Color-Space-Perception.input"
-        },
-        {
-            "source": "Convolution.result",
-            "target": "Transfer Function 2.input"
-        },
-        {
-            "source": "Transfer Function 2.sigmoided output",
-            "target": "Projection 6.input"
-        },
-        {
-            "source": "Projection 6.output",
-            "target": "Static Gain 67.input"
         },
         {
             "source": "Camera Reader.output",
@@ -948,14 +1130,6 @@
             "target": "Rate To Space Code 6.input"
         },
         {
-            "source": "Vector To Scalars 3.scalar 1",
-            "target": "Rate To Space Code 4.input"
-        },
-        {
-            "source": "Vector To Scalars 3.scalar 2",
-            "target": "Rate To Space Code 5.input"
-        },
-        {
             "source": "Position Reader.output",
             "target": "Rate To Space Code 7.input"
         },
@@ -968,20 +1142,8 @@
             "target": "Projection 8.input"
         },
         {
-            "source": "Projection 8.output",
-            "target": "Current Arm Position.input"
-        },
-        {
             "source": "Rate To Space Code 2.output",
             "target": "Projection 9.input"
-        },
-        {
-            "source": "Projection 9.output",
-            "target": "Current Arm Position.input"
-        },
-        {
-            "source": "Projection 10.output",
-            "target": "Current Arm Position.input"
         },
         {
             "source": "Rate To Space Code 3.output",
@@ -992,24 +1154,96 @@
             "target": "Projection 12.input"
         },
         {
-            "source": "Projection 12.output",
-            "target": "Current Head Fixation.input"
+            "source": "Rate To Space Code 5.output",
+            "target": "Projection 11.input"
         },
         {
-            "source": "Projection 13.output",
-            "target": "Current Head Fixation.input"
+            "source": "Vector To Scalars 3.scalar 1",
+            "target": "Rate To Space Code 5.input"
         },
         {
             "source": "Projection 11.output",
             "target": "Current Head Fixation.input"
         },
         {
-            "source": "Rate To Space Code 4.output",
-            "target": "Projection 13.input"
+            "source": "Projection 12.output",
+            "target": "Current Head Fixation.input"
         },
         {
-            "source": "Rate To Space Code 5.output",
-            "target": "Projection 11.input"
+            "source": "Projection 8.output",
+            "target": "Current Arm Position.input"
+        },
+        {
+            "source": "Projection 9.output",
+            "target": "Current Arm Position.input"
+        },
+        {
+            "source": "Projection 10.output",
+            "target": "Current Arm Position.input"
+        },
+        {
+            "source": "Kill arm color channel.Gauss input",
+            "target": "Projection 7.input"
+        },
+        {
+            "source": "Convolution.result",
+            "target": "Sum.terms"
+        },
+        {
+            "source": "Projection 7.output",
+            "target": "Sum.terms"
+        },
+        {
+            "source": "Sum.sum",
+            "target": "Static Gain 2.input"
+        },
+        {
+            "source": "Static Gain 2.output",
+            "target": "Color-Space-Perception.input"
+        },
+        {
+            "source": "Projection 14.output",
+            "target": "x target 2.input"
+        },
+        {
+            "source": "Projection 15.output",
+            "target": "z target 2.input"
+        },
+        {
+            "source": "x target 2.output",
+            "target": "Scalars To Vector 3.scalar 0"
+        },
+        {
+            "source": "z target 2.output",
+            "target": "Scalars To Vector 3.scalar 1"
+        },
+        {
+            "source": "Target head Position.Gauss input",
+            "target": "Projection 14.input"
+        },
+        {
+            "source": "Target head Position.Gauss input",
+            "target": "Projection 15.input"
+        },
+        {
+            "source": "Target body Position.Gauss input",
+            "target": "z target 3.input"
+        },
+        {
+            "source": "z target 3.output",
+            "target": "Scalars To Vector 2.scalar 0"
+        },
+        {
+            "source": "Connector Reader.output",
+            "target": "Vector To Scalars.input vector"
+        },
+        {
+            "source": "Vector To Scalars.scalar 0",
+            "target": "Current Connector Status.input"
+        },
+        {
+            "source": "Vector To Scalars.scalar 1",
+            "target": "Current Connector Presence.input"
         }
     ],
     "name": "element",
@@ -1032,7 +1266,7 @@
             "width": "124",
             "height": "40",
             "positionX": "-322",
-            "positionY": "378"
+            "positionY": "938"
         },
         {
             "type": "step",
@@ -1049,7 +1283,7 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "14",
+            "positionX": "-224",
             "positionY": "-168"
         },
         {
@@ -1059,7 +1293,7 @@
             "width": "124",
             "height": "40",
             "positionX": "-322",
-            "positionY": "168"
+            "positionY": "658"
         },
         {
             "type": "step",
@@ -1068,7 +1302,7 @@
             "width": "40",
             "height": "40",
             "positionX": "70",
-            "positionY": "168"
+            "positionY": "658"
         },
         {
             "type": "step",
@@ -1077,7 +1311,7 @@
             "width": "40",
             "height": "40",
             "positionX": "-126",
-            "positionY": "168"
+            "positionY": "658"
         },
         {
             "type": "step",
@@ -1085,8 +1319,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "700",
-            "positionY": "168"
+            "positionX": "756",
+            "positionY": "658"
         },
         {
             "type": "step",
@@ -1095,7 +1329,7 @@
             "width": "124",
             "height": "40",
             "positionX": "-322",
-            "positionY": "224"
+            "positionY": "714"
         },
         {
             "type": "step",
@@ -1121,8 +1355,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "364",
-            "positionY": "168"
+            "positionX": "350",
+            "positionY": "658"
         },
         {
             "type": "step",
@@ -1131,7 +1365,25 @@
             "width": "124",
             "height": "40",
             "positionX": "308",
-            "positionY": "350"
+            "positionY": "910"
+        },
+        {
+            "type": "step",
+            "step": "Current Connector Presence",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "308",
+            "positionY": "756"
+        },
+        {
+            "type": "step",
+            "step": "Current Connector Status",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "308",
+            "positionY": "714"
         },
         {
             "type": "step",
@@ -1140,7 +1392,7 @@
             "width": "124",
             "height": "40",
             "positionX": "308",
-            "positionY": "490"
+            "positionY": "1050"
         },
         {
             "type": "step",
@@ -1149,7 +1401,7 @@
             "width": "124",
             "height": "40",
             "positionX": "308",
-            "positionY": "252"
+            "positionY": "812"
         },
         {
             "type": "step",
@@ -1158,7 +1410,7 @@
             "width": "124",
             "height": "40",
             "positionX": "-322",
-            "positionY": "434"
+            "positionY": "994"
         },
         {
             "type": "step",
@@ -1167,7 +1419,16 @@
             "width": "124",
             "height": "40",
             "positionX": "490",
-            "positionY": "14"
+            "positionY": "84"
+        },
+        {
+            "type": "step",
+            "step": "Kill arm color channel",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "182",
+            "positionY": "602"
         },
         {
             "type": "step",
@@ -1176,7 +1437,7 @@
             "width": "40",
             "height": "40",
             "positionX": "-14",
-            "positionY": "168"
+            "positionY": "658"
         },
         {
             "type": "step",
@@ -1185,7 +1446,7 @@
             "width": "124",
             "height": "40",
             "positionX": "-322",
-            "positionY": "280"
+            "positionY": "840"
         },
         {
             "type": "step",
@@ -1193,8 +1454,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "490",
-            "positionY": "-42"
+            "positionX": "504",
+            "positionY": "280"
         },
         {
             "type": "step",
@@ -1212,7 +1473,7 @@
             "width": "40",
             "height": "40",
             "positionX": "140",
-            "positionY": "392"
+            "positionY": "952"
         },
         {
             "type": "step",
@@ -1221,7 +1482,7 @@
             "width": "40",
             "height": "40",
             "positionX": "140",
-            "positionY": "532"
+            "positionY": "1050"
         },
         {
             "type": "step",
@@ -1230,16 +1491,25 @@
             "width": "40",
             "height": "40",
             "positionX": "140",
-            "positionY": "448"
+            "positionY": "1008"
         },
         {
             "type": "step",
-            "step": "Projection 13",
+            "step": "Projection 14",
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "140",
-            "positionY": "490"
+            "positionX": "14",
+            "positionY": "84"
+        },
+        {
+            "type": "step",
+            "step": "Projection 15",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "14",
+            "positionY": "140"
         },
         {
             "type": "step",
@@ -1279,12 +1549,12 @@
         },
         {
             "type": "step",
-            "step": "Projection 6",
+            "step": "Projection 7",
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "546",
-            "positionY": "168"
+            "positionX": "266",
+            "positionY": "602"
         },
         {
             "type": "step",
@@ -1293,7 +1563,7 @@
             "width": "40",
             "height": "40",
             "positionX": "140",
-            "positionY": "308"
+            "positionY": "868"
         },
         {
             "type": "step",
@@ -1302,7 +1572,7 @@
             "width": "40",
             "height": "40",
             "positionX": "140",
-            "positionY": "350"
+            "positionY": "910"
         },
         {
             "type": "step",
@@ -1311,7 +1581,7 @@
             "width": "40",
             "height": "40",
             "positionX": "182",
-            "positionY": "168"
+            "positionY": "658"
         },
         {
             "type": "step",
@@ -1320,7 +1590,7 @@
             "width": "40",
             "height": "40",
             "positionX": "42",
-            "positionY": "308"
+            "positionY": "868"
         },
         {
             "type": "step",
@@ -1329,7 +1599,7 @@
             "width": "40",
             "height": "40",
             "positionX": "42",
-            "positionY": "350"
+            "positionY": "910"
         },
         {
             "type": "step",
@@ -1338,16 +1608,7 @@
             "width": "40",
             "height": "40",
             "positionX": "42",
-            "positionY": "392"
-        },
-        {
-            "type": "step",
-            "step": "Rate To Space Code 4",
-            "display style": "ICON_ONLY",
-            "width": "40",
-            "height": "40",
-            "positionX": "42",
-            "positionY": "490"
+            "positionY": "952"
         },
         {
             "type": "step",
@@ -1356,7 +1617,7 @@
             "width": "40",
             "height": "40",
             "positionX": "42",
-            "positionY": "532"
+            "positionY": "1050"
         },
         {
             "type": "step",
@@ -1365,7 +1626,7 @@
             "width": "40",
             "height": "40",
             "positionX": "42",
-            "positionY": "448"
+            "positionY": "1008"
         },
         {
             "type": "step",
@@ -1374,7 +1635,7 @@
             "width": "40",
             "height": "40",
             "positionX": "42",
-            "positionY": "252"
+            "positionY": "812"
         },
         {
             "type": "step",
@@ -1392,7 +1653,7 @@
             "width": "40",
             "height": "40",
             "positionX": "364",
-            "positionY": "-42"
+            "positionY": "280"
         },
         {
             "type": "step",
@@ -1401,7 +1662,7 @@
             "width": "40",
             "height": "40",
             "positionX": "364",
-            "positionY": "14"
+            "positionY": "84"
         },
         {
             "type": "step",
@@ -1410,34 +1671,61 @@
             "width": "40",
             "height": "40",
             "positionX": "266",
-            "positionY": "168"
+            "positionY": "658"
         },
         {
             "type": "step",
-            "step": "Static Gain 67",
+            "step": "Static Gain 2",
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "616",
-            "positionY": "168"
+            "positionX": "644",
+            "positionY": "658"
         },
         {
             "type": "step",
-            "step": "Target Position",
+            "step": "Sum",
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-224",
+            "positionX": "546",
+            "positionY": "658"
+        },
+        {
+            "type": "step",
+            "step": "Target Arm Position",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "-308",
             "positionY": "-42"
         },
         {
             "type": "step",
-            "step": "Transfer Function 2",
+            "step": "Target body Position",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "-308",
+            "positionY": "280"
+        },
+        {
+            "type": "step",
+            "step": "Target head Position",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "-308",
+            "positionY": "140"
+        },
+        {
+            "type": "step",
+            "step": "Vector To Scalars",
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "462",
-            "positionY": "168"
+            "positionX": "-126",
+            "positionY": "714"
         },
         {
             "type": "step",
@@ -1446,7 +1734,7 @@
             "width": "40",
             "height": "40",
             "positionX": "-126",
-            "positionY": "378"
+            "positionY": "938"
         },
         {
             "type": "step",
@@ -1455,7 +1743,7 @@
             "width": "40",
             "height": "40",
             "positionX": "-126",
-            "positionY": "434"
+            "positionY": "994"
         },
         {
             "type": "trigger",
@@ -1476,6 +1764,15 @@
         },
         {
             "type": "step",
+            "step": "x target 2",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "98",
+            "positionY": "84"
+        },
+        {
+            "type": "step",
             "step": "y target",
             "display style": "ICON_AND_TEXT",
             "width": "124",
@@ -1491,50 +1788,50 @@
             "height": "40",
             "positionX": "98",
             "positionY": "-42"
+        },
+        {
+            "type": "step",
+            "step": "z target 2",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "98",
+            "positionY": "140"
+        },
+        {
+            "type": "step",
+            "step": "z target 3",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "98",
+            "positionY": "280"
         }
     ],
     "ui view": {
-        "ScrollBarX": "-353",
-        "ScrollBarY": "110",
-        "SliderPosX": "-353",
-        "SliderPosY": "110",
-        "Zoom": "0.90000000000000002"
+        "ScrollBarX": "0",
+        "ScrollBarY": "-107",
+        "SliderPosX": "0",
+        "SliderPosY": "-107",
+        "Zoom": "0.65000000000000002"
     },
     "ui generic": {
         "group": "element",
         "open plots": {
-            "Color-Space-PerceptionWidget0": {
-                "step": "Color-Space-Perception",
-                "position_x": "907",
+            "Arm ReaderWidget0": {
+                "step": "Arm Reader",
+                "position_x": "327",
                 "position_y": "653",
-                "width": "402",
-                "height": "386",
-                "position_relative_x": "0.49027027027027026",
+                "width": "200",
+                "height": "200",
+                "position_relative_x": "0.17675675675675676",
                 "position_relative_y": "0.64271653543307083",
-                "width_relative": "0.2172972972972973",
-                "height_relative": "0.37992125984251968",
+                "width_relative": "0.10810810810810811",
+                "height_relative": "0.19685039370078741",
                 "data_list": [
                     {
-                        "id": "BUFFER",
-                        "name": "input sum",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
-                    },
-                    {
-                        "id": "BUFFER",
-                        "name": "activation",
-                        "ignoreIfMissing": "true",
-                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
-                    },
-                    {
                         "id": "OUTPUT",
-                        "name": "activation",
-                        "ignoreIfMissing": "true",
-                        "plotDeclaration": ""
-                    },
-                    {
-                        "id": "OUTPUT",
-                        "name": "sigmoided activation",
+                        "name": "output",
                         "ignoreIfMissing": "false",
                         "plotDeclaration": "cedar::aux::gui::MatDataPlot"
                     }
@@ -1544,59 +1841,28 @@
                         "row": "1",
                         "col": "0",
                         "plot configuration": {
-                            "smooth scaling": "true",
-                            "keep aspect ratio": "true",
-                            "automatic value scaling": "true",
-                            "show legend": "true",
-                            "value limits": {
+                            "autoscaling": "true",
+                            "major grid visible": "false",
+                            "minor grid visible": "false",
+                            "y axis limits": {
                                 "lower limit": "0",
                                 "upper limit": "1"
                             },
-                            "color jet": "PlotDefault"
-                        }
-                    },
-                    {
-                        "row": "1",
-                        "col": "1",
-                        "plot configuration": {
-                            "smooth scaling": "true",
-                            "keep aspect ratio": "true",
-                            "automatic value scaling": "true",
-                            "show legend": "true",
-                            "value limits": {
-                                "lower limit": "0",
-                                "upper limit": "1"
-                            },
-                            "color jet": "PlotDefault"
-                        }
-                    },
-                    {
-                        "row": "3",
-                        "col": "0",
-                        "plot configuration": {
-                            "smooth scaling": "true",
-                            "keep aspect ratio": "true",
-                            "automatic value scaling": "false",
-                            "show legend": "true",
-                            "value limits": {
-                                "lower limit": "0",
-                                "upper limit": "1"
-                            },
-                            "color jet": "PlotDefault"
+                            "discrete plot": "false"
                         }
                     }
                 ]
             },
             "x targetWidget0": {
                 "step": "x target",
-                "position_x": "1272",
-                "position_y": "47",
+                "position_x": "1255",
+                "position_y": "60",
                 "width": "400",
-                "height": "200",
-                "position_relative_x": "0.68756756756756754",
-                "position_relative_y": "0.04625984251968504",
+                "height": "202",
+                "position_relative_x": "0.67837837837837833",
+                "position_relative_y": "0.05905511811023622",
                 "width_relative": "0.21621621621621623",
-                "height_relative": "0.19685039370078741",
+                "height_relative": "0.19881889763779528",
                 "data_list": [
                     {
                         "id": "INPUT",
@@ -1650,12 +1916,12 @@
             },
             "y targetWidget0": {
                 "step": "y target",
-                "position_x": "1277",
-                "position_y": "455",
+                "position_x": "1268",
+                "position_y": "453",
                 "width": "400",
                 "height": "193",
-                "position_relative_x": "0.69027027027027033",
-                "position_relative_y": "0.44783464566929132",
+                "position_relative_x": "0.6854054054054054",
+                "position_relative_y": "0.44586614173228345",
                 "width_relative": "0.21621621621621623",
                 "height_relative": "0.18996062992125984",
                 "data_list": [
@@ -1712,13 +1978,13 @@
             "z targetWidget0": {
                 "step": "z target",
                 "position_x": "1276",
-                "position_y": "251",
+                "position_y": "258",
                 "width": "400",
-                "height": "200",
+                "height": "193",
                 "position_relative_x": "0.68972972972972968",
-                "position_relative_y": "0.24704724409448819",
+                "position_relative_y": "0.25393700787401574",
                 "width_relative": "0.21621621621621623",
-                "height_relative": "0.19685039370078741",
+                "height_relative": "0.18996062992125984",
                 "data_list": [
                     {
                         "id": "INPUT",
