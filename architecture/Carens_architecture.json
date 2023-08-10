@@ -871,7 +871,7 @@
             ],
             "amplitude": "6",
             "centers": [
-                "35"
+                "89"
             ],
             "sigma": [
                 "3"
@@ -888,8 +888,8 @@
             ],
             "amplitude": "6",
             "centers": [
-                "30",
-                "100"
+                "29",
+                "89"
             ],
             "sigma": [
                 "3",
@@ -1810,233 +1810,14 @@
     ],
     "ui view": {
         "ScrollBarX": "0",
-        "ScrollBarY": "-107",
+        "ScrollBarY": "-109",
         "SliderPosX": "0",
-        "SliderPosY": "-107",
+        "SliderPosY": "-109",
         "Zoom": "0.65000000000000002"
     },
     "ui generic": {
         "group": "element",
-        "open plots": {
-            "Arm ReaderWidget0": {
-                "step": "Arm Reader",
-                "position_x": "327",
-                "position_y": "653",
-                "width": "200",
-                "height": "200",
-                "position_relative_x": "0.17675675675675676",
-                "position_relative_y": "0.64271653543307083",
-                "width_relative": "0.10810810810810811",
-                "height_relative": "0.19685039370078741",
-                "data_list": [
-                    {
-                        "id": "OUTPUT",
-                        "name": "output",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
-                    }
-                ],
-                "plot configurations": [
-                    {
-                        "row": "1",
-                        "col": "0",
-                        "plot configuration": {
-                            "autoscaling": "true",
-                            "major grid visible": "false",
-                            "minor grid visible": "false",
-                            "y axis limits": {
-                                "lower limit": "0",
-                                "upper limit": "1"
-                            },
-                            "discrete plot": "false"
-                        }
-                    }
-                ]
-            },
-            "x targetWidget0": {
-                "step": "x target",
-                "position_x": "1255",
-                "position_y": "60",
-                "width": "400",
-                "height": "202",
-                "position_relative_x": "0.67837837837837833",
-                "position_relative_y": "0.05905511811023622",
-                "width_relative": "0.21621621621621623",
-                "height_relative": "0.19881889763779528",
-                "data_list": [
-                    {
-                        "id": "INPUT",
-                        "name": "input",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
-                    },
-                    {
-                        "id": "OUTPUT",
-                        "name": "output",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
-                    },
-                    {
-                        "id": "BUFFER",
-                        "name": "fix point",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": ""
-                    }
-                ],
-                "plot configurations": [
-                    {
-                        "row": "1",
-                        "col": "0",
-                        "plot configuration": {
-                            "autoscaling": "true",
-                            "major grid visible": "false",
-                            "minor grid visible": "false",
-                            "y axis limits": {
-                                "lower limit": "0",
-                                "upper limit": "1"
-                            },
-                            "discrete plot": "false"
-                        }
-                    },
-                    {
-                        "row": "1",
-                        "col": "1",
-                        "plot configuration": {
-                            "autoscaling": "true",
-                            "major grid visible": "false",
-                            "minor grid visible": "false",
-                            "y axis limits": {
-                                "lower limit": "0",
-                                "upper limit": "1"
-                            },
-                            "discrete plot": "false"
-                        }
-                    }
-                ]
-            },
-            "y targetWidget0": {
-                "step": "y target",
-                "position_x": "1268",
-                "position_y": "453",
-                "width": "400",
-                "height": "193",
-                "position_relative_x": "0.6854054054054054",
-                "position_relative_y": "0.44586614173228345",
-                "width_relative": "0.21621621621621623",
-                "height_relative": "0.18996062992125984",
-                "data_list": [
-                    {
-                        "id": "INPUT",
-                        "name": "input",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
-                    },
-                    {
-                        "id": "OUTPUT",
-                        "name": "output",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
-                    },
-                    {
-                        "id": "BUFFER",
-                        "name": "fix point",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": ""
-                    }
-                ],
-                "plot configurations": [
-                    {
-                        "row": "1",
-                        "col": "0",
-                        "plot configuration": {
-                            "autoscaling": "true",
-                            "major grid visible": "false",
-                            "minor grid visible": "false",
-                            "y axis limits": {
-                                "lower limit": "0",
-                                "upper limit": "1"
-                            },
-                            "discrete plot": "false"
-                        }
-                    },
-                    {
-                        "row": "1",
-                        "col": "1",
-                        "plot configuration": {
-                            "autoscaling": "true",
-                            "major grid visible": "false",
-                            "minor grid visible": "false",
-                            "y axis limits": {
-                                "lower limit": "0",
-                                "upper limit": "1"
-                            },
-                            "discrete plot": "false"
-                        }
-                    }
-                ]
-            },
-            "z targetWidget0": {
-                "step": "z target",
-                "position_x": "1276",
-                "position_y": "258",
-                "width": "400",
-                "height": "193",
-                "position_relative_x": "0.68972972972972968",
-                "position_relative_y": "0.25393700787401574",
-                "width_relative": "0.21621621621621623",
-                "height_relative": "0.18996062992125984",
-                "data_list": [
-                    {
-                        "id": "INPUT",
-                        "name": "input",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
-                    },
-                    {
-                        "id": "OUTPUT",
-                        "name": "output",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
-                    },
-                    {
-                        "id": "BUFFER",
-                        "name": "fix point",
-                        "ignoreIfMissing": "false",
-                        "plotDeclaration": ""
-                    }
-                ],
-                "plot configurations": [
-                    {
-                        "row": "1",
-                        "col": "0",
-                        "plot configuration": {
-                            "autoscaling": "true",
-                            "major grid visible": "false",
-                            "minor grid visible": "false",
-                            "y axis limits": {
-                                "lower limit": "0",
-                                "upper limit": "1"
-                            },
-                            "discrete plot": "false"
-                        }
-                    },
-                    {
-                        "row": "1",
-                        "col": "1",
-                        "plot configuration": {
-                            "autoscaling": "true",
-                            "major grid visible": "false",
-                            "minor grid visible": "false",
-                            "y axis limits": {
-                                "lower limit": "0",
-                                "upper limit": "1"
-                            },
-                            "discrete plot": "false"
-                        }
-                    }
-                ]
-            }
-        },
+        "open plots": "",
         "plot groups": "",
         "architecture widgets": "",
         "robots": "",
