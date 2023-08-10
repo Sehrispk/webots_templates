@@ -1,0 +1,12 @@
+#The first to lines are mandatory! Check the Ip of the Computer with cedar and set it accordingly! Buffer Size is just a heuristic here.
+#cedar_ip:134.147.176.60
+cedar_ip:127.0.0.1
+#cedar_ip:192.168.0.118
+#cedar_ip: 134.147.176.40
+read_buffer_size:50000
+camera_port_snd:50020
+mic_port_snd:50021
+LED_port_snd:50022
+motor_port_rcv:50030
+break_port_rcv:50031
+LED_port_rcv:50032
