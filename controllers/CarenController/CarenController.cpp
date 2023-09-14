@@ -3,7 +3,7 @@
 // Description:   Caren Controller for agent Simulation. Connects to Cedar.
 // Author:        Stephan Sehring
 
-#include <webots/Supervisor.hpp>
+#include <webots/Robot.hpp>
 using namespace webots;
 #include "Caren.h"
 

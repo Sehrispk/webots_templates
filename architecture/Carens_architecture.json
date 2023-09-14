@@ -416,53 +416,6 @@
             },
             "comments": ""
         },
-        "cedar.dynamics.NeuralField": {
-            "name": "Current Position",
-            "activation as output": "false",
-            "discrete metric (workaround)": "false",
-            "update stepIcon according to output": "true",
-            "threshold for updating the stepIcon": "0.80000000000000004",
-            "dimensionality": "1",
-            "sizes": [
-                "180"
-            ],
-            "time scale": "100",
-            "resting level": "-0.75",
-            "input noise gain": "0.10000000000000001",
-            "multiplicative noise (input)": "false",
-            "multiplicative noise (activation)": "false",
-            "sigmoid": {
-                "type": "cedar.aux.math.AbsSigmoid",
-                "threshold": "0",
-                "beta": "100"
-            },
-            "global inhibition": "-0.01",
-            "lateral kernels": "",
-            "lateral kernel convolution": {
-                "engine": {
-                    "type": "cedar.aux.conv.OpenCV"
-                },
-                "borderType": "Zero",
-                "mode": "Same",
-                "alternate even kernel center": "false"
-            },
-            "noise correlation kernel": {
-                "dimensionality": "1",
-                "anchor": [
-                    "0"
-                ],
-                "amplitude": "0",
-                "sigmas": [
-                    "3"
-                ],
-                "normalize": "true",
-                "shifts": [
-                    "0"
-                ],
-                "limit": "5"
-            },
-            "comments": ""
-        },
         "cedar.processing.sources.TCPReader": {
             "name": "Head Reader",
             "buffer size": "32768",
@@ -500,24 +453,6 @@
         "cedar.processing.steps.MatrixTypeConverter": {
             "name": "Matrix Type Converter",
             "target type": "Float",
-            "comments": ""
-        },
-        "cedar.processing.sources.TCPReader": {
-            "name": "Position Reader",
-            "buffer size": "32768",
-            "port": "50025",
-            "packet timeout (ms)": "500",
-            "message timeout (ms)": "5",
-            "accept interval (steps)": "30",
-            "comments": ""
-        },
-        "cedar.processing.sinks.TCPWriter": {
-            "name": "Position Writer",
-            "port": "50034",
-            "ip_adress": "127.0.0.1",
-            "timeout (ms)": "100",
-            "max timeouts": "50",
-            "send interval (timesteps)": "1",
             "comments": ""
         },
         "cedar.processing.Projection": {
@@ -711,7 +646,7 @@
             ],
             "amplitude": "1",
             "lower limits": [
-                "0"
+                "1"
             ],
             "upper limits": [
                 "60"
@@ -729,13 +664,13 @@
             ],
             "amplitude": "1",
             "lower limits": [
-                "0"
+                "1"
             ],
             "upper limits": [
                 "20"
             ],
             "sigma": [
-                "1"
+                "1.01"
             ],
             "cyclic": "false",
             "comments": ""
@@ -747,7 +682,7 @@
             ],
             "amplitude": "1",
             "lower limits": [
-                "0"
+                "1"
             ],
             "upper limits": [
                 "180"
@@ -765,7 +700,7 @@
             ],
             "amplitude": "1",
             "lower limits": [
-                "0"
+                "1"
             ],
             "upper limits": [
                 "180"
@@ -783,7 +718,7 @@
             ],
             "amplitude": "1",
             "lower limits": [
-                "0"
+                "1"
             ],
             "upper limits": [
                 "60"
@@ -794,32 +729,9 @@
             "cyclic": "false",
             "comments": ""
         },
-        "cedar.dynamics.RateToSpaceCode": {
-            "name": "Rate To Space Code 7",
-            "output sizes": [
-                "180"
-            ],
-            "amplitude": "1",
-            "lower limits": [
-                "0"
-            ],
-            "upper limits": [
-                "180"
-            ],
-            "sigma": [
-                "3"
-            ],
-            "cyclic": "false",
-            "comments": ""
-        },
         "cedar.processing.ScalarsToVector": {
             "name": "Scalars To Vector",
             "number of vector entries": "3",
-            "comments": ""
-        },
-        "cedar.processing.ScalarsToVector": {
-            "name": "Scalars To Vector 2",
-            "number of vector entries": "1",
             "comments": ""
         },
         "cedar.processing.ScalarsToVector": {
@@ -851,30 +763,14 @@
             ],
             "amplitude": "6",
             "centers": [
-                "40",
-                "105",
+                "29",
+                "89",
                 "20"
             ],
             "sigma": [
                 "3",
                 "3",
-                "1.01"
-            ],
-            "cyclic": "false",
-            "comments": ""
-        },
-        "cedar.processing.sources.GaussInput": {
-            "name": "Target body Position",
-            "dimensionality": "1",
-            "sizes": [
-                "180"
-            ],
-            "amplitude": "6",
-            "centers": [
-                "89"
-            ],
-            "sigma": [
-                "3"
+                "0.010000000000000009"
             ],
             "cyclic": "false",
             "comments": ""
@@ -888,12 +784,12 @@
             ],
             "amplitude": "6",
             "centers": [
-                "29",
+                "59",
                 "89"
             ],
             "sigma": [
-                "3",
-                "3"
+                "0.01",
+                "0.01"
             ],
             "cyclic": "false",
             "comments": ""
@@ -962,16 +858,6 @@
             "use cyclic mean": "false",
             "NaN if no peak": "false",
             "comments": ""
-        },
-        "cedar.dynamics.SpaceToRateCode": {
-            "name": "z target 3",
-            "tau": "0.1 s",
-            "lowerLimit": "1",
-            "upperLimit": "180",
-            "jump to fixed point": "false",
-            "use cyclic mean": "false",
-            "NaN if no peak": "false",
-            "comments": ""
         }
     },
     "triggers": {
@@ -989,24 +875,20 @@
             "listeners": [
                 "Connector Status",
                 "Arm Writer",
-                "Position Writer",
                 "Connector Writer",
                 "Head Writer",
                 "z target",
                 "x target",
                 "y target",
                 "Camera Reader",
-                "Position Reader",
                 "Arm Reader",
                 "Head Reader",
                 "Connector Reader",
                 "Color-Space-Perception",
-                "Current Position",
                 "Current Head Fixation",
                 "Current Arm Position",
                 "x target 2",
                 "z target 2",
-                "z target 3",
                 "Current Connector Status",
                 "Current Connector Presence"
             ]
@@ -1046,16 +928,8 @@
             "target": "Connector Writer.input"
         },
         {
-            "source": "y target.output",
-            "target": "Scalars To Vector.scalar 1"
-        },
-        {
             "source": "x target.output",
             "target": "Scalars To Vector.scalar 0"
-        },
-        {
-            "source": "z target.output",
-            "target": "Scalars To Vector.scalar 2"
         },
         {
             "source": "Target Arm Position.Gauss input",
@@ -1068,10 +942,6 @@
         {
             "source": "Scalars To Vector.vector",
             "target": "Arm Writer.input"
-        },
-        {
-            "source": "Scalars To Vector 2.vector",
-            "target": "Position Writer.input"
         },
         {
             "source": "Scalars To Vector 3.vector",
@@ -1110,14 +980,6 @@
             "target": "Rate To Space Code.input"
         },
         {
-            "source": "Vector To Scalars 2.scalar 1",
-            "target": "Rate To Space Code 2.input"
-        },
-        {
-            "source": "Vector To Scalars 2.scalar 2",
-            "target": "Rate To Space Code 3.input"
-        },
-        {
             "source": "Arm Reader.output",
             "target": "Vector To Scalars 2.input vector"
         },
@@ -1128,14 +990,6 @@
         {
             "source": "Vector To Scalars 3.scalar 0",
             "target": "Rate To Space Code 6.input"
-        },
-        {
-            "source": "Position Reader.output",
-            "target": "Rate To Space Code 7.input"
-        },
-        {
-            "source": "Rate To Space Code 7.output",
-            "target": "Current Position.input"
         },
         {
             "source": "Rate To Space Code.output",
@@ -1210,28 +1064,12 @@
             "target": "z target 2.input"
         },
         {
-            "source": "x target 2.output",
-            "target": "Scalars To Vector 3.scalar 0"
-        },
-        {
-            "source": "z target 2.output",
-            "target": "Scalars To Vector 3.scalar 1"
-        },
-        {
             "source": "Target head Position.Gauss input",
             "target": "Projection 14.input"
         },
         {
             "source": "Target head Position.Gauss input",
             "target": "Projection 15.input"
-        },
-        {
-            "source": "Target body Position.Gauss input",
-            "target": "z target 3.input"
-        },
-        {
-            "source": "z target 3.output",
-            "target": "Scalars To Vector 2.scalar 0"
         },
         {
             "source": "Connector Reader.output",
@@ -1244,11 +1082,35 @@
         {
             "source": "Vector To Scalars.scalar 1",
             "target": "Current Connector Presence.input"
+        },
+        {
+            "source": "z target.output",
+            "target": "Scalars To Vector.scalar 1"
+        },
+        {
+            "source": "y target.output",
+            "target": "Scalars To Vector.scalar 2"
+        },
+        {
+            "source": "x target 2.output",
+            "target": "Scalars To Vector 3.scalar 0"
+        },
+        {
+            "source": "z target 2.output",
+            "target": "Scalars To Vector 3.scalar 1"
+        },
+        {
+            "source": "Vector To Scalars 2.scalar 1",
+            "target": "Rate To Space Code 3.input"
+        },
+        {
+            "source": "Vector To Scalars 2.scalar 2",
+            "target": "Rate To Space Code 2.input"
         }
     ],
     "name": "element",
     "connectors": "",
-    "is looped": "false",
+    "is looped": "true",
     "time factor": "1",
     "loop mode": "fake deltaT",
     "simulation euler step": "0.02 s",
@@ -1396,15 +1258,6 @@
         },
         {
             "type": "step",
-            "step": "Current Position",
-            "display style": "ICON_AND_TEXT",
-            "width": "124",
-            "height": "40",
-            "positionX": "308",
-            "positionY": "812"
-        },
-        {
-            "type": "step",
             "step": "Head Reader",
             "display style": "ICON_AND_TEXT",
             "width": "124",
@@ -1438,24 +1291,6 @@
             "height": "40",
             "positionX": "-14",
             "positionY": "658"
-        },
-        {
-            "type": "step",
-            "step": "Position Reader",
-            "display style": "ICON_AND_TEXT",
-            "width": "124",
-            "height": "40",
-            "positionX": "-322",
-            "positionY": "840"
-        },
-        {
-            "type": "step",
-            "step": "Position Writer",
-            "display style": "ICON_AND_TEXT",
-            "width": "124",
-            "height": "40",
-            "positionX": "504",
-            "positionY": "280"
         },
         {
             "type": "step",
@@ -1630,30 +1465,12 @@
         },
         {
             "type": "step",
-            "step": "Rate To Space Code 7",
-            "display style": "ICON_ONLY",
-            "width": "40",
-            "height": "40",
-            "positionX": "42",
-            "positionY": "812"
-        },
-        {
-            "type": "step",
             "step": "Scalars To Vector",
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
             "positionX": "364",
             "positionY": "-98"
-        },
-        {
-            "type": "step",
-            "step": "Scalars To Vector 2",
-            "display style": "ICON_ONLY",
-            "width": "40",
-            "height": "40",
-            "positionX": "364",
-            "positionY": "280"
         },
         {
             "type": "step",
@@ -1699,15 +1516,6 @@
             "height": "40",
             "positionX": "-308",
             "positionY": "-42"
-        },
-        {
-            "type": "step",
-            "step": "Target body Position",
-            "display style": "ICON_AND_TEXT",
-            "width": "124",
-            "height": "40",
-            "positionX": "-308",
-            "positionY": "280"
         },
         {
             "type": "step",
@@ -1797,15 +1605,6 @@
             "height": "40",
             "positionX": "98",
             "positionY": "140"
-        },
-        {
-            "type": "step",
-            "step": "z target 3",
-            "display style": "ICON_AND_TEXT",
-            "width": "124",
-            "height": "40",
-            "positionX": "98",
-            "positionY": "280"
         }
     ],
     "ui view": {

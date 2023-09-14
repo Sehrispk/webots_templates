@@ -6,7 +6,7 @@
 class ComLooper;
 
 
-class Caren : public Supervisor
+class Caren : public Robot
 {
     // IP and Buffersize and ports load from Config
     std::string caren_ip_address;
@@ -23,7 +23,6 @@ class Caren : public Supervisor
 
     // devices and ComThread
     std::map<std::string, std::string> configMap;
-    webots::Node* caren_node;
     std::vector<webots::Motor*> joint_motors;
     std::vector<webots::PositionSensor*> joint_sensors;
     std::vector<webots::Motor*> head_motors;
@@ -33,7 +32,6 @@ class Caren : public Supervisor
     webots::Camera* camera;
     webots::RangeFinder* distance_camera;
     webots::Connector* connector;
-    webots::TouchSensor* touch_sensor;
     std::unique_ptr<ComLooper> comThread;
     
     // Cedar and Sensor Structs
@@ -43,7 +41,6 @@ class Caren : public Supervisor
       cv::Mat jointAngles;
       cv::Mat eefPosition;
       cv::Mat connectorStatus;
-      cv::Mat cubePosition;
       cv::Mat headAngles;
       cv::Mat headFixation;
       cv::Mat cameraPicture;

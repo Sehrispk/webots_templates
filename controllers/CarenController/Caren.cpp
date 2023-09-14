@@ -1,7 +1,6 @@
 #include <webots/Robot.hpp>
 #include <webots/Supervisor.hpp>
 #include <webots/PositionSensor.hpp>
-#include <webots/TouchSensor.hpp>
 #include <webots/Motor.hpp>
 #include <webots/Camera.hpp>
 #include <webots/RangeFinder.hpp>
@@ -16,6 +15,7 @@ using namespace webots;
 #include "Caren.h"
 
 #include "kinematics.h"
+#include "coordinate_transforms.h"
 
 Caren::Caren(std::string configFilePath) 
 {
@@ -29,7 +29,7 @@ Caren::Caren(std::string configFilePath)
     // start comthread
     comThread->run();
     // init structs
-    sensordata = SensorData{cv::Mat(1,1,CV_32F), cv::Mat::zeros(7,1,CV_32F), cv::Mat::zeros(3,1,CV_32F), cv::Mat::zeros(2,1,CV_32F), cv::Mat::zeros(1,1,CV_32F), cv::Mat::zeros(2,1,CV_32F), cv::Mat::zeros(2,1,CV_32F), cv::Mat::zeros(100, 100, CV_8UC4), cv::Mat::zeros(100,100, CV_32F)};
+    sensordata = SensorData{cv::Mat(1,1,CV_32F), cv::Mat::zeros(8,1,CV_32F), cv::Mat::zeros(3,1,CV_32F), cv::Mat::zeros(2,1,CV_32F), cv::Mat::zeros(2,1,CV_32F), cv::Mat::zeros(2,1,CV_32F), cv::Mat::zeros(100, 100, CV_8UC4), cv::Mat::zeros(100,100, CV_32F)};
     cedardata = CedarData{cv::Mat::zeros(1,1,CV_32F), cv::Mat::zeros(3,1,CV_32F), cv::Mat::zeros(1,1,CV_32F), cv::Mat::zeros(2,1,CV_32F)};
 };
 
@@ -59,16 +59,9 @@ void Caren::ComThreadUpdate()
         comThread->setWriteMatrix("camera", sensordata.cameraPicture);
     }
 
-    if (comThread->doesWriteSocketExist("cube"))
-    {
-        comThread->setWriteMatrix("cube", sensordata.cubePosition);
-    }
-
     if (comThread->doesWriteSocketExist("arm"))
     {
-        sensordata.eefPosition.at<float>(0) = -(sensordata.eefPosition.at<float>(0)-0.4) * 60/0.8;
-        sensordata.eefPosition.at<float>(1) = (sensordata.eefPosition.at<float>(1)-0.8) * 20/0.23;
-        sensordata.eefPosition.at<float>(2) = (sensordata.eefPosition.at<float>(2)+0.8) * 180/1.6;
+        sensordata.eefPosition = caren_to_field_3d(sensordata.eefPosition);
         comThread->setWriteMatrix("arm", sensordata.eefPosition);
     }
 
@@ -79,15 +72,8 @@ void Caren::ComThreadUpdate()
 
     if (comThread->doesWriteSocketExist("head"))
     {
-        sensordata.headFixation.at<float>(0) = -(sensordata.headFixation.at<float>(0)-0.4) * 60/0.8;
-        sensordata.headFixation.at<float>(1) = (sensordata.headFixation.at<float>(1)+0.8) * 180/1.6;
+        sensordata.headFixation = caren_to_field_2d(sensordata.headFixation);
         comThread->setWriteMatrix("head", sensordata.headFixation);
-    }
-
-    if (comThread->doesWriteSocketExist("caren"))
-    {
-        sensordata.carenPosition.at<float>(0) = (sensordata.carenPosition.at<float>(0)+0.8) * 180/1.6;
-        comThread->setWriteMatrix("caren", sensordata.carenPosition);
     }
 
     // read from cedar
@@ -97,14 +83,11 @@ void Caren::ComThreadUpdate()
         if (commandMatrix.rows == 3)
         {
             cedardata.eefPosition = commandMatrix;
-            cedardata.eefPosition.at<float>(0) = -cedardata.eefPosition.at<float>(0)/60.0 * 0.8 + 0.4; // -0.4 to 0.4 with dim size 60
-            cedardata.eefPosition.at<float>(1) = cedardata.eefPosition.at<float>(1)/20.0 * 0.23 + 0.8; //0 in field corresponds to table hight 0.8-1.03
-            cedardata.eefPosition.at<float>(2) = cedardata.eefPosition.at<float>(2)/180.0 * 1.6 - 0.8; // -0.8 to 0.8 fith dim size 0f 180
+            cedardata.eefPosition = field_3d_to_caren(cedardata.eefPosition);
         }
         else
         {
             cedardata.eefPosition = cv::Mat::zeros(3,1,CV_32F);
-            cedardata.eefPosition.at<float>(1) = 0.8; //0 in field corresponds to table hight 0.7-1.03
         }
     }
 
@@ -127,26 +110,11 @@ void Caren::ComThreadUpdate()
         if (commandMatrix.rows == 2)
         {
             cedardata.headFixation = commandMatrix;
-            cedardata.headFixation.at<float>(0) = -cedardata.headFixation.at<float>(0)/60.0 * 0.8 + 0.4; // -0.4 to 0.4 with dim size 60
-            cedardata.headFixation.at<float>(1) = cedardata.headFixation.at<float>(1)/180.0 * 1.6 - 0.8; // -0.8 to 0.8 fith dim size 0f 180
+            cedardata.headFixation = field_2d_to_caren(cedardata.headFixation);
         }
         else
         {
             cedardata.headFixation = cv::Mat::zeros(2,1,CV_32F);
-        }
-    }
-
-    if (comThread->doesReadSocketExist("caren"))
-    {
-        cv::Mat commandMatrix = comThread->getReadCommandMatrix("caren");
-        if (commandMatrix.rows == 1)
-        {
-            cedardata.carenPosition = commandMatrix;
-            cedardata.carenPosition.at<float>(0) = cedardata.carenPosition.at<float>(0)/180.0 * 1.6 - 0.8;
-        }
-        else
-        {
-            cedardata.carenPosition = cv::Mat::zeros(1,1,CV_32F);
         }
     }
 }
@@ -170,15 +138,10 @@ void Caren::readSensorValues()
     {
         sensordata.jointAngles.at<float>(i) = joint_sensors[i]->getValue();
     }
+    sensordata.jointAngles.at<float>(7) = cube_sensor->getValue();
 
-    ////////////////////////////////////// COORDINATE TRANSFORMATIONS MISSING ////////////////////////////////////////////////
-
-    // caren position (allocentric coordinate system)
-    float z_pos = (float) getFromDef("Camera_Center")->getPosition()[2];
-    sensordata.carenPosition.at<float>(0) = z_pos;
-
-    // cube position
-    sensordata.cubePosition.at<float>(0) = cube_sensor->getValue();
+    // caren position (caren coordinate system)
+    sensordata.carenPosition.at<float>(0) = 0;
 
     // head angles
     for (std::vector<webots::PositionSensor*>::size_type i=0; i < head_sensors.size(); i++)
@@ -187,130 +150,77 @@ void Caren::readSensorValues()
     }
 
     // connector status
-    //sensordata.connectorStatus.at<float>(0) = connector->isLocked();
+    sensordata.connectorStatus.at<float>(0) = connector->isLocked();
     sensordata.connectorStatus.at<float>(1) = connector->getPresence();
 
-    // endeffector position (allocentric coordinate system)
-    const double *arm_base_pos = getFromDef("Arm_Base")->getPosition();
-    cv::Vec3f arm_base((float)arm_base_pos[0], (float) arm_base_pos[1], (float) arm_base_pos[2]);
-    cv::Vec3f eef_pos_armcoord = ForwardKinematics((cv::Vec<float, 7>)sensordata.jointAngles);
-    eef_pos_armcoord[0] = -eef_pos_armcoord[0];
-    eef_pos_armcoord[1] = -eef_pos_armcoord[1];
-    sensordata.eefPosition = (cv::Mat) (eef_pos_armcoord + arm_base);
+    // endeffector position (caren coordinate system)
+    Vec3f eef_pos_armcoord = ForwardKinematics((cv::Vec<float, 8>)sensordata.jointAngles);
+    eef_pos_armcoord = arm_base_to_caren(eef_pos_armcoord);
+    sensordata.eefPosition = (cv::Mat) (eef_pos_armcoord);
 
-    // head fixation (allocentric system) for now leave it like this... actually the camera is not in the rotation center...
-    const double *head_pos_ar = getFromDef("Camera_Center")->getPosition();
-    Vec3f head_pos(head_pos_ar[0], head_pos_ar[2], head_pos_ar[1]);
-    head_pos[0] = head_pos[0] -0.4;
-    float phi = -sensordata.headAngles.at<float>(1);
-    float theta = sensordata.headAngles.at<float>(0)+M_PI;
-    Vec3f head_direction(sin(theta) * cos(phi), sin(theta) * sin(phi), cos(theta));
-
-    float table_proj_factor = (0.8-head_pos[2])/head_direction[2];
-    Vec2f table_pos((head_pos + table_proj_factor * head_direction)[0], (head_pos + table_proj_factor * head_direction)[1]);
+    // head fixation (caren coordinate system)
+    Vec3f rotation_origin(0.,0.,0.);
+    rotation_origin = cam_base_to_caren(rotation_origin);
+    Vec3f cam_fixation = CameraAnglesToCenterViewPoint(rotation_origin, sensordata.headAngles.at<float>(1), sensordata.headAngles.at<float>(0));
+    Vec2f table_pos(cam_fixation[0], cam_fixation[1]);
     sensordata.headFixation =  (cv::Mat) table_pos;
 }
 
 void Caren::applyMotorCommands()
 {
-    ///////////////////////////////////////////// caren position command /////////////////////////////////////////////////////
-    float z_target = cedardata.carenPosition.at<float>(0);
-    double z_pos = getFromDef("Camera_Center")->getPosition()[2];
-    double z_vel = (z_target-z_pos)/(abs(z_target-z_pos)) * 0.001 * (abs(z_target-z_pos)>=0.001);
-    double z_pos_new = caren_node->getPosition()[2] + z_vel;
-    double new_pos[3] = {0,0,z_pos_new};
-
-    Field *translation = caren_node->getField("translation");
-    translation->setSFVec3f((double*)new_pos);
-
     ////////////////////////////////////////////// arm commands //////////////////////////////////////////////////////////////
-    const double *arm_base_pos = getFromDef("Arm_Base")->getPosition();
-    cv::Vec3f arm_base((float)arm_base_pos[0], (float) arm_base_pos[1], (float) arm_base_pos[2]);
-
     cv::Vec3f p_target(cedardata.eefPosition.at<float>(0),cedardata.eefPosition.at<float>(1),cedardata.eefPosition.at<float>(2));
-    p_target = p_target - arm_base;
-    p_target[0] = -p_target[0];
-    p_target[1] = -p_target[1];
+    p_target = caren_to_arm_base(p_target);
 
-    cv::Vec<float, 7> joint_min_positions;
-    cv::Vec<float, 7> joint_max_positions;
-    cv::Vec<float, 7> joint_max_velocities;
-    cv::Vec<float,7> joint_velocities = ThetaDot(p_target, (cv::Vec<float, 7>)sensordata.jointAngles);
-    cv::Vec<float,7> new_joint_angles = (cv::Vec<float, 7>)sensordata.jointAngles + joint_velocities * this->getBasicTimeStep();
+    float joint_min_position;
+    float joint_max_position;
+    float joint_max_velocity;
+    cv::Vec<float,8> joint_velocities = ThetaDot(p_target, (cv::Vec<float, 8>)sensordata.jointAngles);
+    cv::Vec<float,8> new_joint_angles = (cv::Vec<float, 8>)sensordata.jointAngles + joint_velocities * this->getBasicTimeStep();
 
     for (std::vector<webots::Motor*>::size_type i = 0; i < joint_motors.size(); i++)
     {
-        joint_min_positions[i] = (float) joint_motors[i]->getMinPosition();
-        joint_max_positions[i] = (float) joint_motors[i]->getMaxPosition();
-        joint_max_velocities[i] = (float) joint_motors[i]->getMaxVelocity();
-        new_joint_angles[i] = new_joint_angles[i] * (new_joint_angles[i]>joint_min_positions[i] && new_joint_angles[i]<joint_max_positions[i]) + (joint_min_positions[i]+0.001) * (new_joint_angles[i]<joint_min_positions[i]) + (joint_max_positions[i]-0.001) * (new_joint_angles[i]>joint_max_positions[i]);
-        joint_velocities[i] = joint_velocities[i] * (abs(joint_velocities[i])<joint_max_velocities[i]) + (joint_max_velocities[i]-0.001) * (abs(joint_velocities[i])>joint_max_velocities[i]);
+        joint_min_position = (float) joint_motors[i]->getMinPosition();
+        joint_max_position = (float) joint_motors[i]->getMaxPosition();
+        joint_max_velocity = (float) joint_motors[i]->getMaxVelocity();
+        new_joint_angles[i] = new_joint_angles[i] * (new_joint_angles[i]>joint_min_position && new_joint_angles[i]<joint_max_position) + (joint_min_position+0.001) * (new_joint_angles[i]<joint_min_position) + (joint_max_position-0.001) * (new_joint_angles[i]>joint_max_position);
+        joint_velocities[i] = joint_velocities[i] * (abs(joint_velocities[i])<joint_max_velocity) + (joint_max_velocity-0.001) * (abs(joint_velocities[i])>joint_max_velocity);
         joint_motors[i]->setVelocity(abs(joint_velocities[i]));
         joint_motors[i]->setPosition(new_joint_angles[i]);
     }
-
-    ////////////////////////////////////////////// cube commands /////////////////////////////////////////////////////////////
-    cube_motor->setVelocity(0.0);
-    cube_motor->setPosition(0.0);
+    joint_max_velocity = cube_motor->getMaxVelocity();
+    cube_motor->setVelocity(abs(joint_velocities[7]) * (abs(joint_velocities[7])<joint_max_velocity) + (joint_max_velocity-0.001) * (abs(joint_velocities[7])>joint_max_velocity));
+    cube_motor->setPosition(new_joint_angles[7]);
 
     ////////////////////////////////////////////// head commands /////////////////////////////////////////////////////////////
-    const double *head_pos_ar = getFromDef("Camera_Center")->getPosition();
-    Vec3f head_pos(head_pos_ar[0], head_pos_ar[1], head_pos_ar[2]);
-    Vec3f target_fixation(cedardata.headFixation.at<float>(0), 0.8, cedardata.headFixation.at<float>(1));
-    Vec3f target_head_direction = (target_fixation-head_pos)/norm(target_fixation-head_pos);
-    target_head_direction[0] = -target_head_direction[0];
-    float theta = acos(target_head_direction[1]);
-    float phi = atan2(target_head_direction[2], target_head_direction[0]);
+    Vec3f cam_base(0.,0.,0.);
+    cam_base = cam_base_to_caren(cam_base);
+    Vec3f target_fixation(cedardata.headFixation.at<float>(0), cedardata.headFixation.at<float>(1), coord_box[2][0]);
+    Vec2f target_angles = CenterViewPointToCameraAngles(target_fixation, cam_base);
+    
     head_motors[0]->setVelocity(1.0);
-    head_motors[0]->setPosition(theta-M_PI);
+    head_motors[0]->setPosition(target_angles[1]-M_PI_2); // angles should be between 0 and -pi/2
     head_motors[1]->setVelocity(1.0);
-    head_motors[1]->setPosition(-phi);
+    head_motors[1]->setPosition(-target_angles[0]); // - because angle of motor corresponds to -phi
 
     ///////////////////////////////////////////// connector commands /////////////////////////////////////////////////////////
     if ( cedardata.connectorStatus.at<float>(0) <= 0.5 &&  sensordata.connectorStatus.at<float>(0)==1)
     {
-        std::cout << "unkock!" << std::endl;
+        std::cout << "unlock!" << std::endl;
         sensordata.connectorStatus.at<float>(0)=0;
-        //connector->unlock();
+        connector->unlock();
     }
     else if (cedardata.connectorStatus.at<float>(0) > 0.5 && sensordata.connectorStatus.at<float>(0)==0 && sensordata.connectorStatus.at<float>(1)==1)
     {
         std::cout << "lock!" << std::endl;
         sensordata.connectorStatus.at<float>(0)=1;
-        //connector->lock();
-    }
-    if (sensordata.connectorStatus.at<float>(0) == 1)
-    {
-        Node *ConnectorNode = getFromDef("Connector");
-        const double *ConnectorPosition = ConnectorNode->getPosition();
-        int num_grasp_objects = 5;
-        const char *objects[num_grasp_objects] = {"solid1", "solid2", "solid3", "solid4", "solid5"};
-        for(int i = 0; i < num_grasp_objects; i++)
-        {
-            Node *ObjectNode = getFromDef(objects[i]); 
-            const double *ObjectPosition = ObjectNode->getPosition();
-            Field *ObjectTranslation = ObjectNode->getField("translation");
-            Field *ObjectRotation = ObjectNode->getField("rotation");
-            double distance = std::sqrt( (ObjectPosition[0]-ConnectorPosition[0])*(ObjectPosition[0]-ConnectorPosition[0]) + 
-                                (ObjectPosition[1]-ConnectorPosition[1])*(ObjectPosition[1]-ConnectorPosition[1]) + 
-                                (ObjectPosition[2]-ConnectorPosition[2])*(ObjectPosition[2]-ConnectorPosition[2]));
-            if(distance < 0.09) //was 0.08
-            {
-                double newObjpos[3] = {ConnectorPosition[0],ConnectorPosition[1]-0.08,ConnectorPosition[2]};
-                double newRotation[3] = {0,0,0};
-                ObjectTranslation->setSFVec3f(newObjpos);    
-                ObjectNode->resetPhysics();
-            }
-        }
+        connector->lock();
     }
 }
 
 void Caren::initFromConfig()
 {
     // the names come from the webots world file
-    // get base Caren Node
-    caren_node = getFromDef("CAREN");
-
     // get and enable joint motors and sensors
     std::cout << "Initialize the Arm!" << std::endl;
     joint_motors.push_back(getMotor("arm_motor_0"));
@@ -360,11 +270,6 @@ void Caren::initFromConfig()
     std::cout << "Initialize the Caren Connector!" << std::endl;
     connector = getConnector("connector");
     connector->enablePresence(this->getBasicTimeStep());
-    
-    // get and enable touch sensor
-    std::cout << "Initialize the Touch Sensor!" << std::endl;
-    touch_sensor = getTouchSensor("touch sensor");
-    touch_sensor->enable(this->getBasicTimeStep());
 
     // add write sockets
     if (configMap.find("arm_port_snd") != configMap.end())
@@ -375,10 +280,6 @@ void Caren::initFromConfig()
     {
         comThread->addWriteSocket("connector", std::stoi(configMap["connector_port_snd"]), configMap["cedar_ip"]);
     }
-    if (configMap.find("cube_port_snd") != configMap.end())
-    {
-        comThread->addWriteSocket("cube", std::stoi(configMap["cube_port_snd"]), configMap["cedar_ip"]);
-    }
     if (configMap.find("head_port_snd") != configMap.end())
     {
         comThread->addWriteSocket("head", std::stoi(configMap["head_port_snd"]), configMap["cedar_ip"]);
@@ -386,10 +287,6 @@ void Caren::initFromConfig()
     if (configMap.find("camera_port_snd") != configMap.end())
     {
         comThread->addWriteSocket("camera", std::stoi(configMap["camera_port_snd"]), configMap["cedar_ip"]);
-    }
-    if (configMap.find("caren_port_snd") != configMap.end())
-    {
-        comThread->addWriteSocket("caren", std::stoi(configMap["caren_port_snd"]), configMap["cedar_ip"]);
     }
 
     // add read sockets
@@ -401,17 +298,9 @@ void Caren::initFromConfig()
     {
         comThread->addReadSocket("connector", std::stoi(configMap["connector_port_rcv"]), std::stoi(configMap["read_buffer_size"]));
     }
-    if (configMap.find("cube_port_rcv") != configMap.end())
-    {
-        comThread->addReadSocket("cube", std::stoi(configMap["cube_port_rcv"]), std::stoi(configMap["read_buffer_size"]));
-    }
     if (configMap.find("head_port_rcv") != configMap.end())
     {
         comThread->addReadSocket("head", std::stoi(configMap["head_port_rcv"]), std::stoi(configMap["read_buffer_size"]));
-    }
-    if (configMap.find("caren_port_rcv") != configMap.end())
-    {
-        comThread->addReadSocket("caren", std::stoi(configMap["caren_port_rcv"]), std::stoi(configMap["read_buffer_size"]));
     }
 }
 
