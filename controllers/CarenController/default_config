@@ -6,10 +6,10 @@ cedar_ip:127.0.0.1
 read_buffer_size:50000
 arm_port_snd:50020
 connector_port_snd:50021
+head_angles_port_snd:50022
 head_port_snd:50023
 camera_port_snd:50024
-caren_port_snd:50025
+distance_port_snd:50025
 arm_port_rcv:50030
 connector_port_rcv:50031
 head_port_rcv:50033
-caren_port_rcv:50034

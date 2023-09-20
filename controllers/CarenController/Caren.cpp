@@ -59,6 +59,11 @@ void Caren::ComThreadUpdate()
         comThread->setWriteMatrix("camera", sensordata.cameraPicture);
     }
 
+    if (comThread->doesWriteSocketExist("distance_camera"))
+    {
+        comThread->setWriteMatrix("distance_camera", sensordata.distancePicture);
+    }
+
     if (comThread->doesWriteSocketExist("arm"))
     {
         sensordata.eefPosition = caren_to_field_3d(sensordata.eefPosition);
@@ -68,6 +73,11 @@ void Caren::ComThreadUpdate()
     if (comThread->doesWriteSocketExist("connector"))
     {
         comThread->setWriteMatrix("connector", sensordata.connectorStatus);
+    }
+
+    if (comThread->doesWriteSocketExist("head_angles"))
+    {
+        comThread->setWriteMatrix("head_angles", sensordata.headAngles);
     }
 
     if (comThread->doesWriteSocketExist("head"))
@@ -284,9 +294,17 @@ void Caren::initFromConfig()
     {
         comThread->addWriteSocket("head", std::stoi(configMap["head_port_snd"]), configMap["cedar_ip"]);
     }
+    if (configMap.find("head_angles_port_snd") != configMap.end())
+    {
+        comThread->addWriteSocket("head_angles", std::stoi(configMap["head_angles_port_snd"]), configMap["cedar_ip"]);
+    }
     if (configMap.find("camera_port_snd") != configMap.end())
     {
         comThread->addWriteSocket("camera", std::stoi(configMap["camera_port_snd"]), configMap["cedar_ip"]);
+    }
+    if (configMap.find("distance_port_snd") != configMap.end())
+    {
+        comThread->addWriteSocket("distance_camera", std::stoi(configMap["distance_port_snd"]), configMap["cedar_ip"]);
     }
 
     // add read sockets
