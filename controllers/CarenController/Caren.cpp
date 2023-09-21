@@ -77,7 +77,10 @@ void Caren::ComThreadUpdate()
 
     if (comThread->doesWriteSocketExist("head_angles"))
     {
-        comThread->setWriteMatrix("head_angles", sensordata.headAngles);
+        cv::Mat angles_deg = cv::Mat::zeros(2,1,CV_32F); // Cedar wants degrees...
+        angles_deg.at<float>(0) = sensordata.headAngles.at<float>(0)/M_PI*180;
+        angles_deg.at<float>(1) = sensordata.headAngles.at<float>(1)/M_PI*180;
+        comThread->setWriteMatrix("head_angles", angles_deg);
     }
 
     if (comThread->doesWriteSocketExist("head"))

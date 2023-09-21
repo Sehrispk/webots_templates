@@ -942,8 +942,8 @@
             "name": "Const Vector 2",
             "number of vector entries": "2",
             "entries": [
-                "64",
-                "92"
+                "71",
+                "5"
             ],
             "comments": ""
         },
@@ -1256,12 +1256,12 @@
             "output sizes": [
                 "60",
                 "180",
-                "50"
+                "64"
             ],
-            "field unit per meter": "50",
+            "field unit per meter": "90.000000000000227",
             "output translation (m)": [
-                "0",
-                "0",
+                "0.089999999999999997",
+                "-0.90800000000000003",
                 "0"
             ],
             "comments": ""
@@ -1661,6 +1661,14 @@
                 ],
                 "limit": "5"
             },
+            "comments": ""
+        },
+        "cedar.processing.Flip": {
+            "name": "Flip",
+            "flipped dimensions": [
+                "false",
+                "true"
+            ],
             "comments": ""
         },
         "cedar.processing.sources.GaussInput": {
@@ -2393,21 +2401,6 @@
             "comments": ""
         },
         "cedar.processing.Projection": {
-            "name": "Projection 17",
-            "dimension mapping": {
-                "0": "0",
-                "1": "1",
-                "2": "4294967295"
-            },
-            "output dimensionality": "2",
-            "output dimension sizes": [
-                "7",
-                "7"
-            ],
-            "compression type": "SUM",
-            "comments": ""
-        },
-        "cedar.processing.Projection": {
             "name": "Projection 18",
             "dimension mapping": {
                 "0": "0",
@@ -2776,8 +2769,8 @@
         "cedar.processing.Resize": {
             "name": "Resize 4",
             "output size": [
-                "120",
-                "180"
+                "100",
+                "100"
             ],
             "interpolation": "NEAREST",
             "comments": ""
@@ -3925,10 +3918,6 @@
             "target": "Label Gate.input"
         },
         {
-            "source": "Normalization.normalized input",
-            "target": "Projection 17.input"
-        },
-        {
             "source": "Salience Map.sigmoided activation",
             "target": "Matrix Slice.matrix"
         },
@@ -3969,10 +3958,6 @@
             "target": "Transfer Function 2.input"
         },
         {
-            "source": "Clamp.thresholded input",
-            "target": "Component Multiply.operands"
-        },
-        {
             "source": "Const Vector 2.vector",
             "target": "Vector To Scalars 4.input vector"
         },
@@ -3987,10 +3972,6 @@
         {
             "source": "Vector To Scalars 4.scalar 1",
             "target": "Distance Image Coordinate Transform.camera pan (deg)"
-        },
-        {
-            "source": "Component Multiply.product",
-            "target": "Distance Image Coordinate Transform.distance image"
         },
         {
             "source": "Color Conversion 3.converted image",
@@ -4259,11 +4240,23 @@
         {
             "source": "Static Gain 2.output",
             "target": "Exploratory Scene Selection.input"
+        },
+        {
+            "source": "Flip.output",
+            "target": "Distance Image Coordinate Transform.distance image"
+        },
+        {
+            "source": "Clamp.thresholded input",
+            "target": "Component Multiply.operands"
+        },
+        {
+            "source": "Clamp.thresholded input",
+            "target": "Flip.input"
         }
     ],
     "name": "element",
     "connectors": "",
-    "is looped": "false",
+    "is looped": "true",
     "time factor": "1",
     "loop mode": "fake deltaT",
     "simulation euler step": "0.02 s",
@@ -4298,8 +4291,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1988",
-            "positionY": "1022"
+            "positionX": "2324",
+            "positionY": "924"
         },
         {
             "type": "step",
@@ -4307,8 +4300,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "2002",
-            "positionY": "1176"
+            "positionX": "2324",
+            "positionY": "1064"
         },
         {
             "type": "step",
@@ -4316,8 +4309,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1148",
-            "positionY": "644"
+            "positionX": "1778",
+            "positionY": "742"
         },
         {
             "type": "step",
@@ -4325,8 +4318,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1428",
-            "positionY": "1316"
+            "positionX": "532",
+            "positionY": "938"
         },
         {
             "type": "step",
@@ -4334,8 +4327,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1750",
-            "positionY": "1036"
+            "positionX": "2058",
+            "positionY": "924"
         },
         {
             "type": "step",
@@ -4343,8 +4336,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1148",
-            "positionY": "546"
+            "positionX": "1778",
+            "positionY": "686"
         },
         {
             "type": "step",
@@ -4352,8 +4345,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1526",
-            "positionY": "840"
+            "positionX": "1330",
+            "positionY": "812"
         },
         {
             "type": "step",
@@ -4361,8 +4354,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1736",
-            "positionY": "1176"
+            "positionX": "2058",
+            "positionY": "1064"
         },
         {
             "type": "step",
@@ -4388,8 +4381,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "56",
-            "positionY": "392"
+            "positionX": "-28",
+            "positionY": "224"
         },
         {
             "type": "step",
@@ -4397,8 +4390,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "924",
-            "positionY": "1330"
+            "positionX": "140",
+            "positionY": "938"
         },
         {
             "type": "step",
@@ -4406,8 +4399,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-140",
-            "positionY": "784"
+            "positionX": "-56",
+            "positionY": "1246"
         },
         {
             "type": "step",
@@ -4415,8 +4408,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-112",
-            "positionY": "392"
+            "positionX": "-168",
+            "positionY": "224"
         },
         {
             "type": "step",
@@ -4424,8 +4417,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "840",
-            "positionY": "1330"
+            "positionX": "56",
+            "positionY": "938"
         },
         {
             "type": "step",
@@ -4433,8 +4426,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "2058",
-            "positionY": "294"
+            "positionX": "2254",
+            "positionY": "280"
         },
         {
             "type": "step",
@@ -4442,8 +4435,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "224",
-            "positionY": "294"
+            "positionX": "378",
+            "positionY": "224"
         },
         {
             "type": "step",
@@ -4451,8 +4444,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-42",
-            "positionY": "868"
+            "positionX": "42",
+            "positionY": "1330"
         },
         {
             "type": "step",
@@ -4460,8 +4453,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "3094",
-            "positionY": "448"
+            "positionX": "3220",
+            "positionY": "70"
         },
         {
             "type": "step",
@@ -4496,8 +4489,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-42",
-            "positionY": "924"
+            "positionX": "42",
+            "positionY": "1386"
         },
         {
             "type": "step",
@@ -4505,8 +4498,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-126",
-            "positionY": "966"
+            "positionX": "-42",
+            "positionY": "1428"
         },
         {
             "type": "step",
@@ -4514,8 +4507,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "490",
-            "positionY": "238"
+            "positionX": "770",
+            "positionY": "224"
         },
         {
             "type": "step",
@@ -4523,8 +4516,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "3598",
-            "positionY": "-252"
+            "positionX": "3836",
+            "positionY": "602"
         },
         {
             "type": "step",
@@ -4532,8 +4525,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "812",
-            "positionY": "532"
+            "positionX": "700",
+            "positionY": "462"
         },
         {
             "type": "step",
@@ -4541,8 +4534,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1918",
-            "positionY": "1106"
+            "positionX": "2226",
+            "positionY": "994"
         },
         {
             "type": "step",
@@ -4550,8 +4543,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "2016",
-            "positionY": "1106"
+            "positionX": "2324",
+            "positionY": "994"
         },
         {
             "type": "step",
@@ -4595,7 +4588,7 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "224",
+            "positionX": "56",
             "positionY": "462"
         },
         {
@@ -4604,8 +4597,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "-308",
-            "positionY": "784"
+            "positionX": "-224",
+            "positionY": "1246"
         },
         {
             "type": "step",
@@ -4613,8 +4606,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "84",
-            "positionY": "938"
+            "positionX": "168",
+            "positionY": "1400"
         },
         {
             "type": "step",
@@ -4622,8 +4615,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "3052",
-            "positionY": "616"
+            "positionX": "3066",
+            "positionY": "14"
         },
         {
             "type": "step",
@@ -4631,8 +4624,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2884",
-            "positionY": "700"
+            "positionX": "3010",
+            "positionY": "-56"
         },
         {
             "type": "step",
@@ -4640,8 +4633,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "3066",
-            "positionY": "56"
+            "positionX": "3276",
+            "positionY": "420"
         },
         {
             "type": "step",
@@ -4649,8 +4642,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "3444",
-            "positionY": "-98"
+            "positionX": "3668",
+            "positionY": "658"
         },
         {
             "type": "step",
@@ -4658,8 +4651,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1190",
-            "positionY": "728"
+            "positionX": "1568",
+            "positionY": "812"
         },
         {
             "type": "step",
@@ -4677,7 +4670,16 @@
             "width": "124",
             "height": "40",
             "positionX": "3066",
-            "positionY": "546"
+            "positionY": "70"
+        },
+        {
+            "type": "step",
+            "step": "Flip",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "140",
+            "positionY": "1302"
         },
         {
             "type": "step",
@@ -4685,8 +4687,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "308",
-            "positionY": "154"
+            "positionX": "644",
+            "positionY": "294"
         },
         {
             "type": "step",
@@ -4694,8 +4696,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "308",
-            "positionY": "210"
+            "positionX": "644",
+            "positionY": "252"
         },
         {
             "type": "step",
@@ -4703,8 +4705,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "42",
-            "positionY": "574"
+            "positionX": "-238",
+            "positionY": "854"
         },
         {
             "type": "step",
@@ -4712,8 +4714,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "588",
-            "positionY": "420"
+            "positionX": "574",
+            "positionY": "490"
         },
         {
             "type": "step",
@@ -4721,8 +4723,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "588",
-            "positionY": "462"
+            "positionX": "574",
+            "positionY": "532"
         },
         {
             "type": "step",
@@ -4730,8 +4732,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "952",
-            "positionY": "1162"
+            "positionX": "1148",
+            "positionY": "1106"
         },
         {
             "type": "step",
@@ -4739,8 +4741,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2954",
-            "positionY": "462"
+            "positionX": "3164",
+            "positionY": "126"
         },
         {
             "type": "step",
@@ -4748,8 +4750,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "-308",
-            "positionY": "840"
+            "positionX": "-224",
+            "positionY": "1302"
         },
         {
             "type": "step",
@@ -4775,8 +4777,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "882",
-            "positionY": "826"
+            "positionX": "112",
+            "positionY": "840"
         },
         {
             "type": "step",
@@ -4784,7 +4786,7 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1204",
+            "positionX": "1064",
             "positionY": "812"
         },
         {
@@ -4793,8 +4795,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "3402",
-            "positionY": "-266"
+            "positionX": "3668",
+            "positionY": "602"
         },
         {
             "type": "step",
@@ -4802,8 +4804,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "742",
-            "positionY": "1092"
+            "positionX": "854",
+            "positionY": "1036"
         },
         {
             "type": "step",
@@ -4811,8 +4813,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1008",
-            "positionY": "1092"
+            "positionX": "1204",
+            "positionY": "1078"
         },
         {
             "type": "step",
@@ -4820,8 +4822,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1148",
-            "positionY": "966"
+            "positionX": "1344",
+            "positionY": "1022"
         },
         {
             "type": "step",
@@ -4829,8 +4831,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "742",
-            "positionY": "1008"
+            "positionX": "854",
+            "positionY": "980"
         },
         {
             "type": "step",
@@ -4838,8 +4840,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "616",
-            "positionY": "1050"
+            "positionX": "798",
+            "positionY": "1008"
         },
         {
             "type": "step",
@@ -4847,8 +4849,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1498",
-            "positionY": "420"
+            "positionX": "1302",
+            "positionY": "322"
         },
         {
             "type": "step",
@@ -4856,8 +4858,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2618",
-            "positionY": "392"
+            "positionX": "2688",
+            "positionY": "294"
         },
         {
             "type": "step",
@@ -4865,7 +4867,7 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-112",
+            "positionX": "-70",
             "positionY": "462"
         },
         {
@@ -4874,8 +4876,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-28",
-            "positionY": "392"
+            "positionX": "-98",
+            "positionY": "224"
         },
         {
             "type": "step",
@@ -4884,7 +4886,7 @@
             "width": "40",
             "height": "40",
             "positionX": "42",
-            "positionY": "504"
+            "positionY": "210"
         },
         {
             "type": "step",
@@ -4892,8 +4894,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1036",
-            "positionY": "1330"
+            "positionX": "252",
+            "positionY": "980"
         },
         {
             "type": "step",
@@ -4901,8 +4903,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "784",
-            "positionY": "812"
+            "positionX": "28",
+            "positionY": "840"
         },
         {
             "type": "step",
@@ -4910,8 +4912,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1036",
-            "positionY": "1274"
+            "positionX": "252",
+            "positionY": "938"
         },
         {
             "type": "step",
@@ -4919,8 +4921,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1064",
-            "positionY": "812"
+            "positionX": "294",
+            "positionY": "840"
         },
         {
             "type": "step",
@@ -4928,8 +4930,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "364",
-            "positionY": "546"
+            "positionX": "210",
+            "positionY": "462"
         },
         {
             "type": "step",
@@ -4973,8 +4975,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1372",
-            "positionY": "644"
+            "positionX": "2002",
+            "positionY": "742"
         },
         {
             "type": "step",
@@ -5000,17 +5002,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1316",
-            "positionY": "966"
-        },
-        {
-            "type": "step",
-            "step": "Projection 17",
-            "display style": "ICON_ONLY",
-            "width": "40",
-            "height": "40",
-            "positionX": "966",
-            "positionY": "728"
+            "positionX": "1498",
+            "positionY": "1022"
         },
         {
             "type": "step",
@@ -5018,8 +5011,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1512",
-            "positionY": "532"
+            "positionX": "1442",
+            "positionY": "322"
         },
         {
             "type": "step",
@@ -5027,8 +5020,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1904",
-            "positionY": "1176"
+            "positionX": "2226",
+            "positionY": "1064"
         },
         {
             "type": "step",
@@ -5045,8 +5038,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2870",
-            "positionY": "0"
+            "positionX": "3122",
+            "positionY": "364"
         },
         {
             "type": "step",
@@ -5054,8 +5047,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2240",
-            "positionY": "392"
+            "positionX": "2338",
+            "positionY": "364"
         },
         {
             "type": "step",
@@ -5063,8 +5056,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2268",
-            "positionY": "252"
+            "positionX": "2408",
+            "positionY": "280"
         },
         {
             "type": "step",
@@ -5072,8 +5065,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2296",
-            "positionY": "336"
+            "positionX": "2408",
+            "positionY": "322"
         },
         {
             "type": "step",
@@ -5081,7 +5074,7 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1974",
+            "positionX": "2128",
             "positionY": "378"
         },
         {
@@ -5090,8 +5083,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2254",
-            "positionY": "182"
+            "positionX": "2408",
+            "positionY": "238"
         },
         {
             "type": "step",
@@ -5099,8 +5092,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2856",
-            "positionY": "168"
+            "positionX": "3122",
+            "positionY": "420"
         },
         {
             "type": "step",
@@ -5126,8 +5119,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1092",
-            "positionY": "728"
+            "positionX": "1498",
+            "positionY": "812"
         },
         {
             "type": "step",
@@ -5144,8 +5137,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1918",
-            "positionY": "1036"
+            "positionX": "2226",
+            "positionY": "924"
         },
         {
             "type": "step",
@@ -5171,8 +5164,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2940",
-            "positionY": "-70"
+            "positionX": "3206",
+            "positionY": "476"
         },
         {
             "type": "step",
@@ -5180,8 +5173,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-210",
-            "positionY": "294"
+            "positionX": "182",
+            "positionY": "224"
         },
         {
             "type": "step",
@@ -5189,8 +5182,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1190",
-            "positionY": "1302"
+            "positionX": "378",
+            "positionY": "938"
         },
         {
             "type": "step",
@@ -5243,8 +5236,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "938",
-            "positionY": "434"
+            "positionX": "952",
+            "positionY": "462"
         },
         {
             "type": "step",
@@ -5252,8 +5245,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1484",
-            "positionY": "476"
+            "positionX": "1372",
+            "positionY": "322"
         },
         {
             "type": "step",
@@ -5261,8 +5254,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2604",
-            "positionY": "448"
+            "positionX": "2744",
+            "positionY": "308"
         },
         {
             "type": "step",
@@ -5270,8 +5263,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2324",
-            "positionY": "392"
+            "positionX": "2408",
+            "positionY": "364"
         },
         {
             "type": "step",
@@ -5279,8 +5272,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "742",
-            "positionY": "1372"
+            "positionX": "-28",
+            "positionY": "938"
         },
         {
             "type": "step",
@@ -5288,8 +5281,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1232",
-            "positionY": "910"
+            "positionX": "1344",
+            "positionY": "980"
         },
         {
             "type": "step",
@@ -5297,8 +5290,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "1456",
-            "positionY": "308"
+            "positionX": "1078",
+            "positionY": "322"
         },
         {
             "type": "step",
@@ -5306,8 +5299,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2898",
-            "positionY": "56"
+            "positionX": "3038",
+            "positionY": "364"
         },
         {
             "type": "step",
@@ -5315,8 +5308,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2912",
-            "positionY": "224"
+            "positionX": "3038",
+            "positionY": "420"
         },
         {
             "type": "step",
@@ -5342,8 +5335,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "2072",
-            "positionY": "378"
+            "positionX": "2184",
+            "positionY": "364"
         },
         {
             "type": "step",
@@ -5351,8 +5344,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "560",
-            "positionY": "532"
+            "positionX": "378",
+            "positionY": "462"
         },
         {
             "type": "step",
@@ -5360,8 +5353,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "966",
-            "positionY": "644"
+            "positionX": "1568",
+            "positionY": "742"
         },
         {
             "type": "step",
@@ -5369,8 +5362,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2996",
-            "positionY": "770"
+            "positionX": "3010",
+            "positionY": "-14"
         },
         {
             "type": "step",
@@ -5378,8 +5371,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1330",
-            "positionY": "238"
+            "positionX": "1022",
+            "positionY": "224"
         },
         {
             "type": "step",
@@ -5388,7 +5381,7 @@
             "width": "40",
             "height": "40",
             "positionX": "3220",
-            "positionY": "588"
+            "positionY": "14"
         },
         {
             "type": "step",
@@ -5396,8 +5389,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "98",
-            "positionY": "294"
+            "positionX": "266",
+            "positionY": "224"
         },
         {
             "type": "step",
@@ -5405,8 +5398,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2940",
-            "positionY": "0"
+            "positionX": "3206",
+            "positionY": "364"
         },
         {
             "type": "step",
@@ -5414,8 +5407,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1330",
-            "positionY": "364"
+            "positionX": "1022",
+            "positionY": "462"
         },
         {
             "type": "step",
@@ -5423,8 +5416,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1288",
-            "positionY": "1316"
+            "positionX": "448",
+            "positionY": "938"
         },
         {
             "type": "step",
@@ -5432,8 +5425,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2380",
-            "positionY": "196"
+            "positionX": "2478",
+            "positionY": "238"
         },
         {
             "type": "step",
@@ -5441,8 +5434,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "462",
-            "positionY": "532"
+            "positionX": "280",
+            "positionY": "462"
         },
         {
             "type": "step",
@@ -5450,8 +5443,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "3556",
-            "positionY": "-182"
+            "positionX": "3920",
+            "positionY": "602"
         },
         {
             "type": "step",
@@ -5459,8 +5452,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1316",
-            "positionY": "546"
+            "positionX": "1932",
+            "positionY": "686"
         },
         {
             "type": "step",
@@ -5468,8 +5461,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1302",
-            "positionY": "658"
+            "positionX": "1932",
+            "positionY": "742"
         },
         {
             "type": "step",
@@ -5477,8 +5470,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "896",
-            "positionY": "1064"
+            "positionX": "1008",
+            "positionY": "1036"
         },
         {
             "type": "step",
@@ -5486,8 +5479,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1386",
-            "positionY": "938"
+            "positionX": "1498",
+            "positionY": "980"
         },
         {
             "type": "step",
@@ -5495,8 +5488,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "896",
-            "positionY": "966"
+            "positionX": "1008",
+            "positionY": "980"
         },
         {
             "type": "step",
@@ -5505,7 +5498,7 @@
             "width": "40",
             "height": "40",
             "positionX": "1078",
-            "positionY": "910"
+            "positionY": "980"
         },
         {
             "type": "step",
@@ -5513,8 +5506,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2394",
-            "positionY": "336"
+            "positionX": "2478",
+            "positionY": "322"
         },
         {
             "type": "step",
@@ -5522,8 +5515,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "154",
-            "positionY": "392"
+            "positionX": "42",
+            "positionY": "252"
         },
         {
             "type": "step",
@@ -5531,8 +5524,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2926",
-            "positionY": "168"
+            "positionX": "3206",
+            "positionY": "420"
         },
         {
             "type": "step",
@@ -5540,8 +5533,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1358",
-            "positionY": "728"
+            "positionX": "1722",
+            "positionY": "812"
         },
         {
             "type": "step",
@@ -5549,8 +5542,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1456",
-            "positionY": "882"
+            "positionX": "1246",
+            "positionY": "812"
         },
         {
             "type": "step",
@@ -5558,8 +5551,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "252",
-            "positionY": "392"
+            "positionX": "112",
+            "positionY": "252"
         },
         {
             "type": "step",
@@ -5567,8 +5560,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "658",
-            "positionY": "476"
+            "positionX": "644",
+            "positionY": "490"
         },
         {
             "type": "step",
@@ -5576,8 +5569,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "392",
-            "positionY": "210"
+            "positionX": "714",
+            "positionY": "252"
         },
         {
             "type": "step",
@@ -5603,8 +5596,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "126",
-            "positionY": "504"
+            "positionX": "112",
+            "positionY": "210"
         },
         {
             "type": "step",
@@ -5612,8 +5605,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1400",
-            "positionY": "434"
+            "positionX": "1218",
+            "positionY": "350"
         },
         {
             "type": "step",
@@ -5621,8 +5614,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "1106",
-            "positionY": "1330"
+            "positionX": "322",
+            "positionY": "980"
         },
         {
             "type": "step",
@@ -5657,8 +5650,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-42",
-            "positionY": "966"
+            "positionX": "42",
+            "positionY": "1428"
         },
         {
             "type": "step",
@@ -5666,8 +5659,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "126",
-            "positionY": "574"
+            "positionX": "-168",
+            "positionY": "840"
         },
         {
             "type": "step",
@@ -5675,8 +5668,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "616",
-            "positionY": "238"
+            "positionX": "854",
+            "positionY": "224"
         },
         {
             "type": "step",
@@ -5684,8 +5677,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2366",
-            "positionY": "252"
+            "positionX": "2478",
+            "positionY": "280"
         },
         {
             "type": "trigger",
@@ -5701,8 +5694,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "2940",
-            "positionY": "868"
+            "positionX": "2856",
+            "positionY": "-14"
         },
         {
             "type": "step",
@@ -5710,8 +5703,8 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "952",
-            "positionY": "532"
+            "positionX": "784",
+            "positionY": "462"
         },
         {
             "type": "step",
@@ -5719,8 +5712,8 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "2408",
-            "positionY": "392"
+            "positionX": "2478",
+            "positionY": "364"
         },
         {
             "type": "step",
@@ -5769,11 +5762,11 @@
         }
     ],
     "ui view": {
-        "ScrollBarX": "-161",
-        "ScrollBarY": "35",
-        "SliderPosX": "-161",
-        "SliderPosY": "35",
-        "Zoom": "0.47999999999999998"
+        "ScrollBarX": "-151",
+        "ScrollBarY": "347",
+        "SliderPosX": "-151",
+        "SliderPosY": "347",
+        "Zoom": "0.48999999999999999"
     },
     "ui generic": {
         "group": "element",

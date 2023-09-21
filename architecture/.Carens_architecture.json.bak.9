@@ -942,8 +942,8 @@
             "name": "Const Vector 2",
             "number of vector entries": "2",
             "entries": [
-                "64",
-                "92"
+                "71",
+                "5"
             ],
             "comments": ""
         },
@@ -1256,12 +1256,12 @@
             "output sizes": [
                 "60",
                 "180",
-                "50"
+                "64"
             ],
             "field unit per meter": "50",
             "output translation (m)": [
-                "0",
-                "0",
+                "-0.40000000000000002",
+                "-1.75",
                 "0"
             ],
             "comments": ""
@@ -1661,6 +1661,14 @@
                 ],
                 "limit": "5"
             },
+            "comments": ""
+        },
+        "cedar.processing.Flip": {
+            "name": "Flip",
+            "flipped dimensions": [
+                "false",
+                "true"
+            ],
             "comments": ""
         },
         "cedar.processing.sources.GaussInput": {
@@ -3950,10 +3958,6 @@
             "target": "Transfer Function 2.input"
         },
         {
-            "source": "Clamp.thresholded input",
-            "target": "Component Multiply.operands"
-        },
-        {
             "source": "Const Vector 2.vector",
             "target": "Vector To Scalars 4.input vector"
         },
@@ -3968,10 +3972,6 @@
         {
             "source": "Vector To Scalars 4.scalar 1",
             "target": "Distance Image Coordinate Transform.camera pan (deg)"
-        },
-        {
-            "source": "Component Multiply.product",
-            "target": "Distance Image Coordinate Transform.distance image"
         },
         {
             "source": "Color Conversion 3.converted image",
@@ -4240,11 +4240,23 @@
         {
             "source": "Static Gain 2.output",
             "target": "Exploratory Scene Selection.input"
+        },
+        {
+            "source": "Flip.output",
+            "target": "Distance Image Coordinate Transform.distance image"
+        },
+        {
+            "source": "Clamp.thresholded input",
+            "target": "Component Multiply.operands"
+        },
+        {
+            "source": "Clamp.thresholded input",
+            "target": "Flip.input"
         }
     ],
     "name": "element",
     "connectors": "",
-    "is looped": "false",
+    "is looped": "true",
     "time factor": "1",
     "loop mode": "fake deltaT",
     "simulation euler step": "0.02 s",
@@ -4659,6 +4671,15 @@
             "height": "40",
             "positionX": "3066",
             "positionY": "70"
+        },
+        {
+            "type": "step",
+            "step": "Flip",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "140",
+            "positionY": "1302"
         },
         {
             "type": "step",
@@ -5741,10 +5762,10 @@
         }
     ],
     "ui view": {
-        "ScrollBarX": "-346",
-        "ScrollBarY": "478",
-        "SliderPosX": "-346",
-        "SliderPosY": "478",
+        "ScrollBarX": "-151",
+        "ScrollBarY": "362",
+        "SliderPosX": "-151",
+        "SliderPosY": "362",
         "Zoom": "0.48999999999999999"
     },
     "ui generic": {

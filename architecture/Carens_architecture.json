@@ -3,6 +3,11 @@
         "format": "1"
     },
     "steps": {
+        "cedar.processing.steps.AddConstant": {
+            "name": "Add Constant",
+            "constant": "90",
+            "comments": ""
+        },
         "cedar.processing.sources.TCPReader": {
             "name": "Arm Reader",
             "buffer size": "32768",
@@ -868,6 +873,10 @@
             "name": "Component Multiply 2",
             "comments": ""
         },
+        "cedar.processing.ComponentMultiply": {
+            "name": "Component Multiply 3",
+            "comments": ""
+        },
         "cedar.processing.sources.TCPReader": {
             "name": "Connector Reader",
             "buffer size": "32768",
@@ -942,8 +951,16 @@
             "name": "Const Vector 2",
             "number of vector entries": "2",
             "entries": [
-                "29",
-                "-8"
+                "71",
+                "5.4000000000000004"
+            ],
+            "comments": ""
+        },
+        "cedar.processing.ConstVector": {
+            "name": "Const Vector 3",
+            "number of vector entries": "1",
+            "entries": [
+                "-1"
             ],
             "comments": ""
         },
@@ -1256,12 +1273,12 @@
             "output sizes": [
                 "60",
                 "180",
-                "50"
+                "64"
             ],
-            "field unit per meter": "50",
+            "field unit per meter": "90.000000000000227",
             "output translation (m)": [
-                "0",
-                "0",
+                "0.089999999999999997",
+                "-0.90800000000000003",
                 "0"
             ],
             "comments": ""
@@ -1661,6 +1678,14 @@
                 ],
                 "limit": "5"
             },
+            "comments": ""
+        },
+        "cedar.processing.Flip": {
+            "name": "Flip",
+            "flipped dimensions": [
+                "false",
+                "true"
+            ],
             "comments": ""
         },
         "cedar.processing.sources.GaussInput": {
@@ -3199,8 +3224,8 @@
             ],
             "amplitude": "6",
             "centers": [
-                "27",
-                "170",
+                "29",
+                "89",
                 "3"
             ],
             "sigma": [
@@ -3221,7 +3246,7 @@
             "amplitude": "6",
             "centers": [
                 "29",
-                "89"
+                "79"
             ],
             "sigma": [
                 "0.01",
@@ -3271,6 +3296,11 @@
         },
         "cedar.processing.VectorToScalars": {
             "name": "Vector To Scalars 4",
+            "number of vector entries": "2",
+            "comments": ""
+        },
+        "cedar.processing.VectorToScalars": {
+            "name": "Vector To Scalars 5",
             "number of vector entries": "2",
             "comments": ""
         },
@@ -3950,28 +3980,12 @@
             "target": "Transfer Function 2.input"
         },
         {
-            "source": "Clamp.thresholded input",
-            "target": "Component Multiply.operands"
-        },
-        {
             "source": "Const Vector 2.vector",
             "target": "Vector To Scalars 4.input vector"
         },
         {
             "source": "Const Vector.vector",
             "target": "Distance Image Coordinate Transform.camera roll (deg)"
-        },
-        {
-            "source": "Vector To Scalars 4.scalar 0",
-            "target": "Distance Image Coordinate Transform.camera tilt (deg)"
-        },
-        {
-            "source": "Vector To Scalars 4.scalar 1",
-            "target": "Distance Image Coordinate Transform.camera pan (deg)"
-        },
-        {
-            "source": "Component Multiply.product",
-            "target": "Distance Image Coordinate Transform.distance image"
         },
         {
             "source": "Color Conversion 3.converted image",
@@ -4240,11 +4254,47 @@
         {
             "source": "Static Gain 2.output",
             "target": "Exploratory Scene Selection.input"
+        },
+        {
+            "source": "Flip.output",
+            "target": "Distance Image Coordinate Transform.distance image"
+        },
+        {
+            "source": "Clamp.thresholded input",
+            "target": "Component Multiply.operands"
+        },
+        {
+            "source": "Head Angles Reader.output",
+            "target": "Vector To Scalars 5.input vector"
+        },
+        {
+            "source": "Vector To Scalars 5.scalar 0",
+            "target": "Add Constant.input"
+        },
+        {
+            "source": "Const Vector 3.vector",
+            "target": "Component Multiply 3.operands"
+        },
+        {
+            "source": "Vector To Scalars 5.scalar 1",
+            "target": "Component Multiply 3.operands"
+        },
+        {
+            "source": "Add Constant.output",
+            "target": "Distance Image Coordinate Transform.camera tilt (deg)"
+        },
+        {
+            "source": "Component Multiply 3.product",
+            "target": "Distance Image Coordinate Transform.camera pan (deg)"
+        },
+        {
+            "source": "Component Multiply.product",
+            "target": "Flip.input"
         }
     ],
     "name": "element",
     "connectors": "",
-    "is looped": "false",
+    "is looped": "true",
     "time factor": "1",
     "loop mode": "fake deltaT",
     "simulation euler step": "0.02 s",
@@ -4254,6 +4304,15 @@
         {
             "type": "connections",
             "connections": ""
+        },
+        {
+            "type": "step",
+            "step": "Add Constant",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-70",
+            "positionY": "1386"
         },
         {
             "type": "step",
@@ -4446,6 +4505,15 @@
         },
         {
             "type": "step",
+            "step": "Component Multiply 3",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-28",
+            "positionY": "1470"
+        },
+        {
+            "type": "step",
             "step": "Connector Reader",
             "display style": "ICON_AND_TEXT",
             "width": "124",
@@ -4486,8 +4554,17 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "-42",
-            "positionY": "1428"
+            "positionX": "-56",
+            "positionY": "1526"
+        },
+        {
+            "type": "step",
+            "step": "Const Vector 3",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-126",
+            "positionY": "1498"
         },
         {
             "type": "step",
@@ -4659,6 +4736,15 @@
             "height": "40",
             "positionX": "3066",
             "positionY": "70"
+        },
+        {
+            "type": "step",
+            "step": "Flip",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "140",
+            "positionY": "1302"
         },
         {
             "type": "step",
@@ -5629,8 +5715,17 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "42",
-            "positionY": "1428"
+            "positionX": "28",
+            "positionY": "1526"
+        },
+        {
+            "type": "step",
+            "step": "Vector To Scalars 5",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "-126",
+            "positionY": "1456"
         },
         {
             "type": "step",
@@ -5741,29 +5836,35 @@
         }
     ],
     "ui view": {
-        "ScrollBarX": "-346",
-        "ScrollBarY": "421",
-        "SliderPosX": "-346",
-        "SliderPosY": "421",
+        "ScrollBarX": "-151",
+        "ScrollBarY": "-199",
+        "SliderPosX": "-151",
+        "SliderPosY": "-199",
         "Zoom": "0.48999999999999999"
     },
     "ui generic": {
         "group": "element",
         "open plots": {
-            "Component MultiplyWidget0": {
-                "step": "Component Multiply",
-                "position_x": "149",
-                "position_y": "610",
-                "width": "484",
-                "height": "398",
-                "position_relative_x": "0.077604166666666669",
-                "position_relative_y": "0.58485139022051769",
-                "width_relative": "0.25208333333333333",
-                "height_relative": "0.38159156279961648",
+            "ClampWidget0": {
+                "step": "Clamp",
+                "position_x": "625",
+                "position_y": "673",
+                "width": "637",
+                "height": "407",
+                "position_relative_x": "0.33783783783783783",
+                "position_relative_y": "0.66240157480314965",
+                "width_relative": "0.3443243243243243",
+                "height_relative": "0.40059055118110237",
                 "data_list": [
                     {
+                        "id": "INPUT",
+                        "name": "input",
+                        "ignoreIfMissing": "false",
+                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
+                    },
+                    {
                         "id": "OUTPUT",
-                        "name": "product",
+                        "name": "thresholded input",
                         "ignoreIfMissing": "false",
                         "plotDeclaration": "cedar::aux::gui::MatDataPlot"
                     }
@@ -5783,19 +5884,34 @@
                             },
                             "color jet": "PlotDefault"
                         }
+                    },
+                    {
+                        "row": "1",
+                        "col": "1",
+                        "plot configuration": {
+                            "smooth scaling": "true",
+                            "keep aspect ratio": "true",
+                            "automatic value scaling": "true",
+                            "show legend": "true",
+                            "value limits": {
+                                "lower limit": "0",
+                                "upper limit": "1"
+                            },
+                            "color jet": "PlotDefault"
+                        }
                     }
                 ]
             },
             "Distance Image Coordinate TransformWidget0": {
                 "step": "Distance Image Coordinate Transform",
-                "position_x": "132",
-                "position_y": "209",
-                "width": "1242",
-                "height": "381",
-                "position_relative_x": "0.068750000000000006",
-                "position_relative_y": "0.20038350910834132",
-                "width_relative": "0.64687499999999998",
-                "height_relative": "0.36529242569511028",
+                "position_x": "118",
+                "position_y": "132",
+                "width": "1406",
+                "height": "514",
+                "position_relative_x": "0.063783783783783785",
+                "position_relative_y": "0.12992125984251968",
+                "width_relative": "0.76000000000000001",
+                "height_relative": "0.50590551181102361",
                 "data_list": [
                     {
                         "id": "OUTPUT",
@@ -5820,6 +5936,42 @@
                             "color jet": "PlotDefault",
                             "sliced dimension": "2",
                             "desired columns": "8"
+                        }
+                    }
+                ]
+            },
+            "Component MultiplyWidget0": {
+                "step": "Component Multiply",
+                "position_x": "895",
+                "position_y": "504",
+                "width": "597",
+                "height": "501",
+                "position_relative_x": "0.48378378378378378",
+                "position_relative_y": "0.49606299212598426",
+                "width_relative": "0.32270270270270268",
+                "height_relative": "0.49311023622047245",
+                "data_list": [
+                    {
+                        "id": "OUTPUT",
+                        "name": "product",
+                        "ignoreIfMissing": "false",
+                        "plotDeclaration": "cedar::aux::gui::MatDataPlot"
+                    }
+                ],
+                "plot configurations": [
+                    {
+                        "row": "1",
+                        "col": "0",
+                        "plot configuration": {
+                            "smooth scaling": "true",
+                            "keep aspect ratio": "true",
+                            "automatic value scaling": "true",
+                            "show legend": "true",
+                            "value limits": {
+                                "lower limit": "0",
+                                "upper limit": "1"
+                            },
+                            "color jet": "PlotDefault"
                         }
                     }
                 ]
