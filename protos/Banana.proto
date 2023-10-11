@@ -16,14 +16,46 @@ Solid {
   translation IS translation
   rotation IS rotation
   children [
-    Connector {
-      type "passive"
-      autoLock TRUE
-      distanceTolerance 0.025
-      axisTolerance 3.14
-      rotationTolerance 3.14
-      snap FALSE
+    Transform {
+      translation -0.085 0.04 0
+      children [
+        Connector {
+          type "passive"
+          autoLock TRUE
+          distanceTolerance 0.025
+          axisTolerance 3.14
+          rotationTolerance 3.14
+          snap FALSE
+        }
+      ]
     }
+    Transform {
+      translation 0.075 0.035 0
+      children [
+        Connector {
+          type "passive"
+          autoLock TRUE
+          distanceTolerance 0.025
+          axisTolerance 3.14
+          rotationTolerance 3.14
+          snap FALSE
+        }
+      ]
+    }
+    Transform {
+      translation 0 0.025 0
+      children [
+        Connector {
+          type "passive"
+          autoLock TRUE
+          distanceTolerance 0.025
+          axisTolerance 3.14
+          rotationTolerance 3.14
+          snap FALSE
+        }
+      ]
+    }
+
     DEF Banana_Shape_IndexSet Shape {
       castShadows FALSE
       appearance PBRAppearance {

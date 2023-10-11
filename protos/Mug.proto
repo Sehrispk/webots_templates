@@ -16,14 +16,21 @@ Solid {
   translation IS translation
   rotation IS rotation
   children [
-    Connector {
-      type "passive"
-      autoLock TRUE
-      distanceTolerance 0.05
-      axisTolerance 3.14
-      rotationTolerance 3.14
-      snap FALSE
+    Transform {
+      translation 0 0 0.09
+      rotation 1 0 0 0
+      children [
+        Connector {
+          type "passive"
+          autoLock TRUE
+          distanceTolerance 0.035
+          axisTolerance 3.14
+          rotationTolerance 3.14
+          snap FALSE
+        }
+      ]
     }
+
     DEF Liquid Transform {
       translation 0 0 0.04
       rotation 1 0 0 0
