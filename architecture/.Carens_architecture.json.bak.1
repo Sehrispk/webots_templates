@@ -3225,7 +3225,7 @@
                 "20"
             ],
             "time scale": "100",
-            "resting level": "-5",
+            "resting level": "-0.70000000000000095",
             "input noise gain": "0.10000000000000001",
             "multiplicative noise (input)": "false",
             "multiplicative noise (activation)": "false",
@@ -3302,7 +3302,7 @@
                 "20"
             ],
             "time scale": "100",
-            "resting level": "-5",
+            "resting level": "-0.70000000000000095",
             "input noise gain": "0.10000000000000001",
             "multiplicative noise (input)": "false",
             "multiplicative noise (activation)": "false",
@@ -3379,7 +3379,7 @@
                 "10"
             ],
             "time scale": "100",
-            "resting level": "-5",
+            "resting level": "-0.70000000000000095",
             "input noise gain": "0.10000000000000001",
             "multiplicative noise (input)": "false",
             "multiplicative noise (activation)": "false",
@@ -3506,6 +3506,104 @@
                 ],
                 "normalize": "true",
                 "shifts": [
+                    "0",
+                    "0"
+                ],
+                "limit": "5"
+            },
+            "comments": ""
+        },
+        "cedar.dynamics.NeuralField": {
+            "name": "Neural Field 2",
+            "activation as output": "false",
+            "discrete metric (workaround)": "false",
+            "update stepIcon according to output": "true",
+            "threshold for updating the stepIcon": "0.80000000000000004",
+            "dimensionality": "3",
+            "sizes": [
+                "60",
+                "180",
+                "20"
+            ],
+            "time scale": "100",
+            "resting level": "-0.69999999999999951",
+            "input noise gain": "0.10000000000000001",
+            "multiplicative noise (input)": "false",
+            "multiplicative noise (activation)": "false",
+            "sigmoid": {
+                "type": "cedar.aux.math.AbsSigmoid",
+                "threshold": "0",
+                "beta": "100"
+            },
+            "global inhibition": "-0.0015",
+            "lateral kernels": {
+                "cedar.aux.kernel.Gauss": {
+                    "dimensionality": "3",
+                    "anchor": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "amplitude": "9.9999999999999893",
+                    "sigmas": [
+                        "3",
+                        "3",
+                        "0.29999999999999999"
+                    ],
+                    "normalize": "true",
+                    "shifts": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "limit": "5"
+                },
+                "cedar.aux.kernel.Gauss": {
+                    "dimensionality": "3",
+                    "anchor": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "amplitude": "-14.999999999999991",
+                    "sigmas": [
+                        "7",
+                        "7",
+                        "0.59999999999999998"
+                    ],
+                    "normalize": "true",
+                    "shifts": [
+                        "0",
+                        "0",
+                        "0"
+                    ],
+                    "limit": "5"
+                }
+            },
+            "lateral kernel convolution": {
+                "engine": {
+                    "type": "cedar.aux.conv.FFTW"
+                },
+                "borderType": "Cyclic",
+                "mode": "Same",
+                "alternate even kernel center": "false"
+            },
+            "noise correlation kernel": {
+                "dimensionality": "3",
+                "anchor": [
+                    "0",
+                    "0",
+                    "0"
+                ],
+                "amplitude": "0",
+                "sigmas": [
+                    "3",
+                    "3",
+                    "3"
+                ],
+                "normalize": "true",
+                "shifts": [
+                    "0",
                     "0",
                     "0"
                 ],
@@ -3803,7 +3901,7 @@
                 "180",
                 "20"
             ],
-            "compression type": "SUM",
+            "compression type": "MAXIMUM",
             "comments": ""
         },
         "cedar.processing.Projection": {
@@ -3860,56 +3958,11 @@
                 "180",
                 "20"
             ],
-            "compression type": "SUM",
-            "comments": ""
-        },
-        "cedar.processing.Projection": {
-            "name": "Projection 31",
-            "dimension mapping": {
-                "0": "0",
-                "1": "1"
-            },
-            "output dimensionality": "3",
-            "output dimension sizes": [
-                "60",
-                "180",
-                "10"
-            ],
-            "compression type": "SUM",
-            "comments": ""
-        },
-        "cedar.processing.Projection": {
-            "name": "Projection 32",
-            "dimension mapping": {
-                "0": "0",
-                "1": "1",
-                "2": "4294967295"
-            },
-            "output dimensionality": "2",
-            "output dimension sizes": [
-                "60",
-                "180"
-            ],
             "compression type": "MAXIMUM",
             "comments": ""
         },
         "cedar.processing.Projection": {
-            "name": "Projection 33",
-            "dimension mapping": {
-                "0": "0",
-                "1": "1"
-            },
-            "output dimensionality": "3",
-            "output dimension sizes": [
-                "60",
-                "180",
-                "20"
-            ],
-            "compression type": "SUM",
-            "comments": ""
-        },
-        "cedar.processing.Projection": {
-            "name": "Projection 34",
+            "name": "Projection 31",
             "dimension mapping": {
                 "0": "0",
                 "1": "1"
@@ -4725,7 +4778,7 @@
             "comments": ""
         },
         "cedar.dynamics.NeuralField": {
-            "name": "Scene Memory Color",
+            "name": "Scene Memory Color Gate",
             "activation as output": "false",
             "discrete metric (workaround)": "false",
             "update stepIcon according to output": "true",
@@ -4737,7 +4790,7 @@
                 "20"
             ],
             "time scale": "100",
-            "resting level": "-5",
+            "resting level": "-1.6999999999999993",
             "input noise gain": "0.10000000000000001",
             "multiplicative noise (input)": "false",
             "multiplicative noise (activation)": "false",
@@ -4746,30 +4799,8 @@
                 "threshold": "0",
                 "beta": "100"
             },
-            "global inhibition": "-0.01",
-            "lateral kernels": {
-                "cedar.aux.kernel.Gauss": {
-                    "dimensionality": "3",
-                    "anchor": [
-                        "0",
-                        "0",
-                        "0"
-                    ],
-                    "amplitude": "1",
-                    "sigmas": [
-                        "3",
-                        "3",
-                        "3"
-                    ],
-                    "normalize": "true",
-                    "shifts": [
-                        "0",
-                        "0",
-                        "0"
-                    ],
-                    "limit": "5"
-                }
-            },
+            "global inhibition": "0",
+            "lateral kernels": "",
             "lateral kernel convolution": {
                 "engine": {
                     "type": "cedar.aux.conv.FFTW"
@@ -4802,7 +4833,7 @@
             "comments": ""
         },
         "cedar.dynamics.NeuralField": {
-            "name": "Scene Memory Height",
+            "name": "Scene Memory Height Gate",
             "activation as output": "false",
             "discrete metric (workaround)": "false",
             "update stepIcon according to output": "true",
@@ -4814,7 +4845,7 @@
                 "20"
             ],
             "time scale": "100",
-            "resting level": "-5",
+            "resting level": "-0.69999999999999951",
             "input noise gain": "0.10000000000000001",
             "multiplicative noise (input)": "false",
             "multiplicative noise (activation)": "false",
@@ -4823,30 +4854,8 @@
                 "threshold": "0",
                 "beta": "100"
             },
-            "global inhibition": "-0.01",
-            "lateral kernels": {
-                "cedar.aux.kernel.Gauss": {
-                    "dimensionality": "3",
-                    "anchor": [
-                        "0",
-                        "0",
-                        "0"
-                    ],
-                    "amplitude": "1",
-                    "sigmas": [
-                        "3",
-                        "3",
-                        "3"
-                    ],
-                    "normalize": "true",
-                    "shifts": [
-                        "0",
-                        "0",
-                        "0"
-                    ],
-                    "limit": "5"
-                }
-            },
+            "global inhibition": "0",
+            "lateral kernels": "",
             "lateral kernel convolution": {
                 "engine": {
                     "type": "cedar.aux.conv.FFTW"
@@ -4879,7 +4888,7 @@
             "comments": ""
         },
         "cedar.dynamics.NeuralField": {
-            "name": "Scene Memory Shape",
+            "name": "Scene Memory Shape Gate",
             "activation as output": "false",
             "discrete metric (workaround)": "false",
             "update stepIcon according to output": "true",
@@ -4891,7 +4900,7 @@
                 "10"
             ],
             "time scale": "100",
-            "resting level": "-5",
+            "resting level": "-1.7000000000000015",
             "input noise gain": "0.10000000000000001",
             "multiplicative noise (input)": "false",
             "multiplicative noise (activation)": "false",
@@ -4900,30 +4909,8 @@
                 "threshold": "0",
                 "beta": "100"
             },
-            "global inhibition": "-0.01",
-            "lateral kernels": {
-                "cedar.aux.kernel.Gauss": {
-                    "dimensionality": "3",
-                    "anchor": [
-                        "0",
-                        "0",
-                        "0"
-                    ],
-                    "amplitude": "1",
-                    "sigmas": [
-                        "3",
-                        "3",
-                        "3"
-                    ],
-                    "normalize": "true",
-                    "shifts": [
-                        "0",
-                        "0",
-                        "0"
-                    ],
-                    "limit": "5"
-                }
-            },
+            "global inhibition": "0",
+            "lateral kernels": "",
             "lateral kernel convolution": {
                 "engine": {
                     "type": "cedar.aux.conv.FFTW"
@@ -5398,6 +5385,21 @@
         "cedar.processing.StaticGain": {
             "name": "Static Gain 36",
             "gain factor": "0.80000000000000004",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 37",
+            "gain factor": "2.0000000000000009",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 38",
+            "gain factor": "2.0000000000000009",
+            "comments": ""
+        },
+        "cedar.processing.StaticGain": {
+            "name": "Static Gain 39",
+            "gain factor": "2.0000000000000009",
             "comments": ""
         },
         "cedar.processing.StaticGain": {
@@ -6321,9 +6323,9 @@
                 "Fixation",
                 "saccade Cos",
                 "Attentional FVF IOR",
-                "Scene Memory Color",
-                "Scene Memory Height",
-                "Scene Memory Shape",
+                "Scene Memory Color Gate",
+                "Scene Memory Height Gate",
+                "Scene Memory Shape Gate",
                 "saccade CoS field",
                 "Color Cue",
                 "shape cue",
@@ -6358,7 +6360,8 @@
                 "Hebbian Connection 3",
                 "Hebbian Connection 4",
                 "Hebbian Connection 5",
-                "Hebbian Connection 6"
+                "Hebbian Connection 6",
+                "Neural Field 2"
             ]
         }
     },
@@ -7141,7 +7144,7 @@
         },
         {
             "source": "Projection 27.output",
-            "target": "Scene Memory Color.input"
+            "target": "Scene Memory Color Gate.input"
         },
         {
             "source": "Attended Label.sigmoided activation",
@@ -7149,7 +7152,7 @@
         },
         {
             "source": "Projection 28.output",
-            "target": "Scene Memory Shape.input"
+            "target": "Scene Memory Shape Gate.input"
         },
         {
             "source": "Transfer Function 5.sigmoided output",
@@ -7189,7 +7192,7 @@
         },
         {
             "source": "Distance Image Coordinate Transform 4.allocentric representation",
-            "target": "Scene Memory Height.input"
+            "target": "Scene Memory Height Gate.input"
         },
         {
             "source": "Projection 29.output",
@@ -7197,11 +7200,7 @@
         },
         {
             "source": "Projection 30.output",
-            "target": "Scene Memory Height.input"
-        },
-        {
-            "source": "Projection 30.output",
-            "target": "Scene Memory Color.input"
+            "target": "Scene Memory Color Gate.input"
         },
         {
             "source": "Projection 29.output",
@@ -7209,31 +7208,7 @@
         },
         {
             "source": "Projection 31.output",
-            "target": "Scene Memory Shape.input"
-        },
-        {
-            "source": "Distance Image Coordinate Transform 2.allocentric representation",
-            "target": "Projection 32.input"
-        },
-        {
-            "source": "Projection 32.output",
-            "target": "Projection 33.input"
-        },
-        {
-            "source": "Projection 32.output",
-            "target": "Projection 34.input"
-        },
-        {
-            "source": "Projection 34.output",
-            "target": "Scene Memory Shape.input"
-        },
-        {
-            "source": "Projection 33.output",
-            "target": "Scene Memory Color.input"
-        },
-        {
-            "source": "Projection 33.output",
-            "target": "Scene Memory Height.input"
+            "target": "Scene Memory Shape Gate.input"
         },
         {
             "source": "Current Head Fixation.sigmoided activation",
@@ -7266,18 +7241,6 @@
         {
             "source": "Memory Guidance Shape.sigmoided activation",
             "target": "Projection 39.input"
-        },
-        {
-            "source": "Scene Memory Color.sigmoided activation",
-            "target": "Memory Guidance Color.input"
-        },
-        {
-            "source": "Scene Memory Height.sigmoided activation",
-            "target": "Memory Guidance Height.input"
-        },
-        {
-            "source": "Scene Memory Shape.sigmoided activation",
-            "target": "Memory Guidance Shape.input"
         },
         {
             "source": "Color Cue.sigmoided activation",
@@ -7584,14 +7547,6 @@
             "target": "Label Gate.input"
         },
         {
-            "source": "Projection 41.output",
-            "target": "Memory Guidance Shape.input"
-        },
-        {
-            "source": "Projection 40.output",
-            "target": "Memory Guidance Color.input"
-        },
-        {
             "source": "Static Gain 56.output",
             "target": "Scene\nAttended\nShape 2.input"
         },
@@ -7762,6 +7717,30 @@
         {
             "source": "Static Gain 10.output",
             "target": "shape cue.input"
+        },
+        {
+            "source": "Scene Memory Height Gate.sigmoided activation",
+            "target": "Static Gain 39.input"
+        },
+        {
+            "source": "Scene Memory Color Gate.sigmoided activation",
+            "target": "Static Gain 38.input"
+        },
+        {
+            "source": "Scene Memory Shape Gate.sigmoided activation",
+            "target": "Static Gain 37.input"
+        },
+        {
+            "source": "Static Gain 37.output",
+            "target": "Memory Guidance Shape.input"
+        },
+        {
+            "source": "Static Gain 38.output",
+            "target": "Memory Guidance Color.input"
+        },
+        {
+            "source": "Static Gain 39.output",
+            "target": "Memory Guidance Height.input"
         }
     ],
     "scripts": [
@@ -8674,7 +8653,7 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "3304",
+            "positionX": "3444",
             "positionY": "896"
         },
         {
@@ -8683,7 +8662,7 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "3304",
+            "positionX": "3444",
             "positionY": "966"
         },
         {
@@ -8692,7 +8671,7 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "3304",
+            "positionX": "3444",
             "positionY": "812"
         },
         {
@@ -8701,8 +8680,17 @@
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
-            "positionX": "3584",
+            "positionX": "3724",
             "positionY": "896"
+        },
+        {
+            "type": "step",
+            "step": "Neural Field 2",
+            "display style": "ICON_AND_TEXT",
+            "width": "124",
+            "height": "40",
+            "positionX": "3724",
+            "positionY": "952"
         },
         {
             "type": "step",
@@ -8949,33 +8937,6 @@
         },
         {
             "type": "step",
-            "step": "Projection 32",
-            "display style": "ICON_ONLY",
-            "width": "40",
-            "height": "40",
-            "positionX": "504",
-            "positionY": "1400"
-        },
-        {
-            "type": "step",
-            "step": "Projection 33",
-            "display style": "ICON_ONLY",
-            "width": "40",
-            "height": "40",
-            "positionX": "588",
-            "positionY": "1372"
-        },
-        {
-            "type": "step",
-            "step": "Projection 34",
-            "display style": "ICON_ONLY",
-            "width": "40",
-            "height": "40",
-            "positionX": "588",
-            "positionY": "1428"
-        },
-        {
-            "type": "step",
             "step": "Projection 35",
             "display style": "ICON_ONLY",
             "width": "40",
@@ -8989,7 +8950,7 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "3458",
+            "positionX": "3598",
             "positionY": "896"
         },
         {
@@ -9007,7 +8968,7 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "3458",
+            "positionX": "3598",
             "positionY": "966"
         },
         {
@@ -9016,7 +8977,7 @@
             "display style": "ICON_ONLY",
             "width": "40",
             "height": "40",
-            "positionX": "3458",
+            "positionX": "3598",
             "positionY": "812"
         },
         {
@@ -9435,7 +9396,7 @@
         },
         {
             "type": "step",
-            "step": "Scene Memory Color",
+            "step": "Scene Memory Color Gate",
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
@@ -9444,7 +9405,7 @@
         },
         {
             "type": "step",
-            "step": "Scene Memory Height",
+            "step": "Scene Memory Height Gate",
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
@@ -9453,7 +9414,7 @@
         },
         {
             "type": "step",
-            "step": "Scene Memory Shape",
+            "step": "Scene Memory Shape Gate",
             "display style": "ICON_AND_TEXT",
             "width": "124",
             "height": "40",
@@ -9783,6 +9744,33 @@
             "height": "40",
             "positionX": "3990",
             "positionY": "1848"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 37",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "3234",
+            "positionY": "812"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 38",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "3234",
+            "positionY": "896"
+        },
+        {
+            "type": "step",
+            "step": "Static Gain 39",
+            "display style": "ICON_ONLY",
+            "width": "40",
+            "height": "40",
+            "positionX": "3234",
+            "positionY": "966"
         },
         {
             "type": "step",
@@ -10226,11 +10214,11 @@
         }
     ],
     "ui view": {
-        "ScrollBarX": "0",
-        "ScrollBarY": "115",
-        "SliderPosX": "0",
-        "SliderPosY": "115",
-        "Zoom": "0.27000000000000002"
+        "ScrollBarX": "1573",
+        "ScrollBarY": "492",
+        "SliderPosX": "1573",
+        "SliderPosY": "492",
+        "Zoom": "0.75"
     },
     "ui generic": {
         "group": "element",
