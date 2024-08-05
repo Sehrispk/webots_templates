@@ -1,5 +1,5 @@
 #include <vector>
-#include <opencv2/core/core.hpp>
+#include <opencv2/core.hpp>
 #include <shared_mutex>
 #include <chrono>
 #include <ctime>
@@ -125,6 +125,8 @@ public:
             {
                 numberOfFailedReads = 0;
                 std::string concatString = std::string(buffer, msgLength); //This should do it properly
+                cv::Mat retMat = currentReadMatrix.clone();
+                //std::cout << retMat << std::endl;
 
                 //Let's see, if we found the end of a Msg. I am not sure why this is sometimes omitted.
                 if (concatString.find(messageEndSequence) != std::string::npos)
@@ -150,18 +152,19 @@ public:
             } else
             {
                 numberOfFailedReads = numberOfFailedReads +1;
+                //std::cout << numberOfFailedReads << std::endl;
 
                 if(numberOfFailedReads > maxNumberOfFailedReads)
                 {
-                    numberOfFailedReads = 0;
-//                    if (raw_socket_handle != -1)
-//                    {
-////                        std::cout<<"Socket Reader! Port " << mPort << " Exceeded NumberOfFailedReads: " << maxNumberOfFailedReads << std::endl;
-//                        socket_handle = accept_client(raw_socket_handle);
-//                    } else
-//                    {
-//                        reconnect();
-//                    }
+                    //numberOfFailedReads = 0;
+                    //if (raw_socket_handle != -1)
+                    //{
+                    //    std::cout<<"Socket Reader! Port " << mPort << " Exceeded NumberOfFailedReads: " << maxNumberOfFailedReads << std::endl;
+                    //    socket_handle = accept_client(raw_socket_handle);
+                    //} else
+                    //{
+                    //    reconnect();
+                    //}
                     mIsConnected.store(false); // This should have the same effect as above. If reading failed, I am obviously not connected anymore...
                 }
 

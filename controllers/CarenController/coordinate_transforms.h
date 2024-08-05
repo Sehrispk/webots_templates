@@ -1,20 +1,25 @@
 #ifndef CAREN_COORDINATE_TRANSFORMS
 #define CAREN_COORDINATE_Transforms
 
-#include <opencv2/core.hpp>
-#include <opencv2/core/mat.hpp>
-#include <cmath>
+//#include <opencv2/core.hpp>
+//#include <opencv2/core/mat.hpp>
+#include <opencv2/opencv.hpp>
+#include <math.h>
 #include <vector>
 #include <map>
 
 //using namespace cv;
-using cv::Matx33f, cv::Matx44f, cv::Vec2f, cv::Vec3f, cv::Vec4f;
+using cv::Matx33f;
+using cv::Matx44f;
+using cv::Vec2f;
+using cv::Vec3f;
+using cv::Vec4f;
 
-const Vec3f cube_base(0.0, -0.01+0.11/2, 0.295);
+const Vec3f cube_base(0.0, -0.01+0.11/2, 0.295+0.0635);
 const Vec3f cam_box(0.0, 0.01, 0.84+0.068);
 
 const Vec3f field_size(60, 180, 20);
-const float coord_box[3][2] = {{0.1, 0.74}, {-0.8, 0.9}, {-0.02, 0.55}};
+const float coord_box[3][2] = {{0.1, 0.94}, {-0.75, 1.05}, {0.055, 0.65}};
 
 cv::Vec<float, 3> caren_to_arm_base(cv::Vec<float, 3> vec)
 {

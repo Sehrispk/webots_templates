@@ -15,7 +15,7 @@
 #include <webots/Supervisor.hpp>
 #include <webots/TouchSensor.hpp> 
 #include <webots/Receiver.hpp> 
-#include <opencv2/core/core.hpp>
+#include <opencv2/core.hpp>
 #include <fstream>
 #include <map>
 #include <cmath>

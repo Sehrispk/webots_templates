@@ -22,20 +22,6 @@ PROTO Apple [
     recognitionColors [ 0.59 0.75 0.28 ]
     children [
       Transform {
-        translation 0 0 %<= fields.scale.value * 0.05 >%
-        rotation 1 0 0 0
-        children [
-          Connector {
-            type "passive"
-            autoLock TRUE
-            distanceTolerance 0.02
-            axisTolerance 3.141592654
-            rotationTolerance 3.141592654
-            snap FALSE
-          }
-        ]
-      }
-      Transform {
         scale %<= fields.scale.value >% %<= fields.scale.value >% %<= fields.scale.value >%
         children [
           Shape {
@@ -74,10 +60,6 @@ PROTO Apple [
     immersionProperties IS immersionProperties
     boundingObject Sphere {
       radius %<= fields.scale.value * 0.05 >%
-    }
-    physics Physics {
-      density -1
-      mass IS mass
     }
   }
 }

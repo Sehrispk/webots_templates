@@ -1,10 +1,13 @@
 #ifndef Caren_H
 #define Caren_H
 
-#include <opencv2/core/core.hpp>
+//#include <opencv2/core.hpp>
+#include <opencv2/opencv.hpp>
 #include <map>
 class ComLooper;
 
+using cv::Vec2f;
+using cv::Vec3f;
 
 class Caren : public Robot
 {
@@ -56,6 +59,27 @@ class Caren : public Robot
   
     SensorData sensordata;
     CedarData cedardata;
+
+    // saccade status
+    int saccade_status=0;
+    float distanceBuffer = 1;
+    float defaultDistance = 0.6;
+    Vec2f fixationOffset;
+
+    // default arm position
+    Vec3f defaultArmPos;
+    Vec2f defaulCamAngl;
+
+    // arm target fixed buffer
+    Vec3f P_target;
+    Vec3f P_initial;
+    Vec3f delta_P;
+    float t=0, delta_t=0.001;
+    float x = 0.25;
+    float arm_operation_mode = 1;
+    float epsilon = 0.001;
+    float safety_height = -0.1;
+    float move_to_safety = 0;
 
 private:
   void initFromConfig();

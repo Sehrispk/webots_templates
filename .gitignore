@@ -1,0 +1,12 @@
+dir
+old
+__pycache__
+build
+*.bak*
+*.cache
+*.wbproj
+*.vs
+*.pyc
+*.venv
+*.zip
+.idea

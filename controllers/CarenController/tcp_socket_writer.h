@@ -1,5 +1,5 @@
 #include <vector>
-#include <opencv2/core/core.hpp>
+#include <opencv2/core.hpp>
 #include <shared_mutex>
 #include <chrono>
 #include "utilities.h"

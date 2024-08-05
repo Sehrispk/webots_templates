@@ -16,7 +16,7 @@ int main(int argc, char **argv)
     configFileName = std::string(argv[1]);
   }
 
-  // create E_Puck instance
+  // create Caren instance
   Caren* caren = new Caren(configFileName);
 
   // get the time step of the current world.
