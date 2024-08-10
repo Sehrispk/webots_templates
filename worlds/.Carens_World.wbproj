@@ -5,6 +5,6 @@ sceneTreePerspectives: 000000ff00000001000000030000001c0000038a000000fa010000000
 maximizedDockId: -1
 centralWidgetVisible: 1
 orthographicViewHeight: 1
-textFiles: 0 "controllers/CarenController/CarenController.cpp" "controllers/CarenController/default_config"
+textFiles: 0 "../webots_templates/controllers/CarenController/CarenController.cpp" "../webots_templates/controllers/CarenController/default_config"
 renderingDevicePerspectives: Caren:camera_center;1;0.80602;0;0
 renderingDevicePerspectives: Caren:range-finder;0;0.982143;0;0
